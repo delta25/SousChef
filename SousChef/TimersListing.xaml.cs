@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Windows;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,10 +27,8 @@ namespace SousChef
         public TimersListing()
         {
             this.InitializeComponent();
-        }
+            this.NavigationCacheMode = NavigationCacheMode.Required;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
             var col1 = new ColumnDefinition();
             col1.Width = new GridLength(1, GridUnitType.Star);
             var col2 = new ColumnDefinition();
@@ -38,16 +38,67 @@ namespace SousChef
             myGrid.ColumnDefinitions.Add(col2);
 
 
-            var webView = new WebView();
+            webView = new WebView();
             webView.Navigate(new Uri("http://google.com"));
 
             myGrid.Children.Add(webView);
             Grid.SetColumn(webView, 0);
 
-            var webView2 = new SousChef_WebView();            
+            var webView2 = new SousChef_WebView();
 
             myGrid.Children.Add(webView2);
             Grid.SetColumn(webView2, 1);
+            DispatcherTimerSetup();
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {           
+
+
+        }
+
+        WebView webView;
+
+        DispatcherTimer dispatcherTimer;
+        DateTimeOffset startTime;
+        DateTimeOffset lastTime;
+        DateTimeOffset stopTime;
+        int timesTicked = 1;
+        int timesToTick = 5;
+
+        public void DispatcherTimerSetup()
+        {
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            //IsEnabled defaults to false
+            startTime = DateTimeOffset.Now;
+            lastTime = startTime;
+
+            dispatcherTimer.Start();
+            //IsEnabled should now be true after calling start
+
+        }
+
+        void dispatcherTimer_Tick(object sender, object e)
+        {
+            DateTimeOffset time = DateTimeOffset.Now;
+            TimeSpan span = time - lastTime;
+            lastTime = time;
+            //Time since last tick should be very very close to Interval
+            
+            timesTicked++;
+            if (timesTicked > timesToTick)
+            {
+                stopTime = time;
+                
+                dispatcherTimer.Stop();
+                //IsEnabled should now be false after calling stop
+                
+                span = stopTime - startTime;
+                webView.Navigate(new Uri("http://bing.com"));
+            }
         }
     }
 }
