@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T12:23:35.602</Modified>
+      <Modified>2018-12-05T14:34:05.192</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
       <PackagePath>entrypoint\SousChef.exe</PackagePath>
-      <Modified>2018-12-05T12:23:35.146</Modified>
+      <Modified>2018-12-05T14:34:04.736</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -542,35 +542,39 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
       <PackagePath>SousChef.xr.xml</PackagePath>
-      <Modified>2018-12-05T12:19:01.207</Modified>
+      <Modified>2018-12-05T14:33:33.152</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.990</Modified>
+      <Modified>2018-12-05T14:34:04.584</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Controls\SCWebView.xbf">
       <PackagePath>Controls\SCWebView.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.991</Modified>
+      <Modified>2018-12-05T14:34:04.585</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\HomePage.xbf">
       <PackagePath>Pages\HomePage.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.992</Modified>
+      <Modified>2018-12-05T14:34:04.586</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.993</Modified>
+      <Modified>2018-12-05T14:34:04.587</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf">
       <PackagePath>Pages\RecipePage.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.994</Modified>
+      <Modified>2018-12-05T14:34:04.588</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\TimersListingPage.xbf">
       <PackagePath>Pages\TimersListingPage.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.995</Modified>
+      <Modified>2018-12-05T14:34:04.588</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\SettingsPage.xbf">
       <PackagePath>Pages\SettingsPage.xbf</PackagePath>
-      <Modified>2018-12-05T12:23:34.996</Modified>
+      <Modified>2018-12-05T14:34:04.589</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Styles\NoClearTextBox.xbf">
+      <PackagePath>Styles\NoClearTextBox.xbf</PackagePath>
+      <Modified>2018-12-05T14:34:04.583</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.17763.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -586,11 +590,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2018-12-05T12:07:18.795</Modified>
+      <Modified>2018-12-05T14:33:33.896</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
       <PackagePath>SousChef.exe</PackagePath>
-      <Modified>2018-12-05T12:23:35.598</Modified>
+      <Modified>2018-12-05T14:34:05.189</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

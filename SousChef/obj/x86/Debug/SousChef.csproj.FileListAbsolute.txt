@@ -487,3 +487,6 @@ C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\Pages\RecipePage.g.cs
 C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\Pages\RecipePage.xaml
 C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\Pages\RecipePage.xbf
 C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf
+C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Styles\NoClearTextBox.xbf
+C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\Styles\NoClearTextBox.xaml
+C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\Styles\NoClearTextBox.xbf

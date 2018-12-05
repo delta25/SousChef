@@ -7,6 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="./../Styles/NoClearTextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,7 +21,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>            
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -29,7 +36,7 @@
         <Button Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
         </Button>
-        <TextBox Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL" AcceptsReturn="True" TextWrapping="NoWrap"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL" Style="{StaticResource NoClearTextBox}"></TextBox>
         <Button Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
         </Button>

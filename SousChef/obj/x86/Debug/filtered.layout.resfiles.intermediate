@@ -13,5 +13,6 @@ Pages\RecipePage.xbf
 Pages\SettingsPage.xbf
 Pages\TimersListingPage.xbf
 SousChef.xr.xml
+Styles\NoClearTextBox.xbf
 Properties\Default.rd.xml
 WinMetadata\Windows.winmd
