@@ -119,21 +119,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HomePage.xaml.cs">
+    <Compile Include="Controls\SCWebView.xaml.cs">
+      <DependentUpon>SCWebView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RecipePage.xaml.cs">
+      <DependentUpon>RecipePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TimersListingPage.xaml.cs">
+      <DependentUpon>TimersListingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
+    <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SousChef_WebView.xaml.cs">
-      <DependentUpon>SousChef_WebView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TimersListing.xaml.cs">
-      <DependentUpon>TimersListing.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +160,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="HomePage.xaml">
+    <Page Include="Controls\SCWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,15 +172,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SettingsPage.xaml">
+    <Page Include="Pages\RecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SousChef_WebView.xaml">
+    <Page Include="Pages\TimersListingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TimersListing.xaml">
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

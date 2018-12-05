@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.System;
 using muxc = Microsoft.UI.Xaml.Controls;
+using SousChef.Pages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,7 +40,7 @@ namespace SousChef
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
             {
                 ("home", typeof(HomePage)),
-                ("timers", typeof(TimersListing)),
+                ("timers", typeof(TimersListingPage)),
             };
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +54,15 @@ namespace SousChef
             // Because we use ItemInvoked to navigate, we need to call Navigate
             // here to load the home page.
             NavView_Navigate("home", new EntranceNavigationTransitionInfo());
+
+            NavView.MenuItems.Add(new muxc.NavigationViewItem
+            {
+                Content = "MyNewRecipe",
+                Icon = new SymbolIcon((Symbol)0xF1AD),
+                Tag = "content"
+            });
+
+            _pages.Add(("content", typeof(RecipePage)));
 
             // Add keyboard accelerators for backwards navigation.
             var goBack = new KeyboardAccelerator { Key = VirtualKey.GoBack };

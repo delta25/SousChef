@@ -8,13 +8,19 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style TargetType="muxc:NavigationViewItem">
+            <Setter Property="BorderThickness" Value="0" />            
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <muxc:NavigationView x:Name="NavView" CompactModeThresholdWidth="0"
-            Loaded="NavView_Loaded"
-                         ItemInvoked="NavView_ItemInvoked"
-                         BackRequested="NavView_BackRequested">
+                                Loaded="NavView_Loaded"
+                                ItemInvoked="NavView_ItemInvoked"
+                                BackRequested="NavView_BackRequested">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Tag="home" Icon="Home" Content="Home"/>
+                <muxc:NavigationViewItem  Tag="home" Icon="Home" Content="Home"/>
                 <muxc:NavigationViewItemSeparator/>
                 <muxc:NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages"/>
                 <muxc:NavigationViewItem Tag="timers" Content="Timers">

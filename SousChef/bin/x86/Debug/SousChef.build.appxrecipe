@@ -10,22 +10,22 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1</PackageIdentityName>
     <PackageIdentityPublisher>CN=Markb</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Markb\Dropbox\Development\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
       <PackagePath>entrypoint\SousChef.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
@@ -376,56 +376,59 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.17763.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
       <PackagePath>SousChef.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\HomePage.xbf">
-      <PackagePath>HomePage.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Controls\SCWebView.xbf">
+      <PackagePath>Controls\SCWebView.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\HomePage.xbf">
+      <PackagePath>Pages\HomePage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SettingsPage.xbf">
-      <PackagePath>SettingsPage.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf">
+      <PackagePath>Pages\RecipePage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef_WebView.xbf">
-      <PackagePath>SousChef_WebView.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\TimersListingPage.xbf">
+      <PackagePath>Pages\TimersListingPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\TimersListing.xbf">
-      <PackagePath>TimersListing.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\SettingsPage.xbf">
+      <PackagePath>Pages\SettingsPage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.17763.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -436,10 +439,10 @@
     <AppxPackagedFile Include="C:\Users\Markb\.nuget\packages\microsoft.ui.xaml\2.0.181018003\build\..\lib\uap10.0\Microsoft.UI.Xaml.winmd">
       <PackagePath>WinMetadata\Microsoft.UI.Xaml.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
       <PackagePath>SousChef.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

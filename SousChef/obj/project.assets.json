@@ -28151,11 +28151,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Markb\\Dropbox\\Development\\SousChef\\SousChef\\SousChef.csproj",
+      "projectUniqueName": "C:\\PersonalDev\\SousChef\\SousChef\\SousChef.csproj",
       "projectName": "SousChef",
-      "projectPath": "C:\\Users\\Markb\\Dropbox\\Development\\SousChef\\SousChef\\SousChef.csproj",
+      "projectPath": "C:\\PersonalDev\\SousChef\\SousChef\\SousChef.csproj",
       "packagesPath": "C:\\Users\\Markb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Markb\\Dropbox\\Development\\SousChef\\SousChef\\obj\\",
+      "outputPath": "C:\\PersonalDev\\SousChef\\SousChef\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

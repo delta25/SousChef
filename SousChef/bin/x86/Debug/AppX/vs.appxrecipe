@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1</PackageIdentityName>
     <PackageIdentityPublisher>CN=Markb</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Markb\Dropbox\Development\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>9DECF22D7F321B5B12614DD70EABC01CF6738839DE86524B069E0058EB332A0D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1_1.0.0.0_x86__y9x8g3wkfqay2</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1_y9x8g3wkfqay2!App</RegisteredUserModeAppID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-04T13:48:35.740</Modified>
+      <Modified>2018-12-05T12:23:35.602</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
       <PackagePath>entrypoint\SousChef.exe</PackagePath>
-      <Modified>2018-12-04T13:48:34.940</Modified>
+      <Modified>2018-12-05T12:23:35.146</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -502,71 +502,75 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2018-10-23T00:33:40.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2018-12-02T22:30:23.000</Modified>
+      <Modified>2018-12-05T06:42:55.944</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.930</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.931</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.932</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.933</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.933</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.934</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-02T09:42:32.000</Modified>
+      <Modified>2018-12-05T06:42:55.935</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
       <PackagePath>SousChef.xr.xml</PackagePath>
-      <Modified>2018-12-04T12:28:36.614</Modified>
+      <Modified>2018-12-05T12:19:01.207</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.758</Modified>
+      <Modified>2018-12-05T12:23:34.990</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\HomePage.xbf">
-      <PackagePath>HomePage.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.759</Modified>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Controls\SCWebView.xbf">
+      <PackagePath>Controls\SCWebView.xbf</PackagePath>
+      <Modified>2018-12-05T12:23:34.991</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\HomePage.xbf">
+      <PackagePath>Pages\HomePage.xbf</PackagePath>
+      <Modified>2018-12-05T12:23:34.992</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.760</Modified>
+      <Modified>2018-12-05T12:23:34.993</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SettingsPage.xbf">
-      <PackagePath>SettingsPage.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.761</Modified>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf">
+      <PackagePath>Pages\RecipePage.xbf</PackagePath>
+      <Modified>2018-12-05T12:23:34.994</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\SousChef_WebView.xbf">
-      <PackagePath>SousChef_WebView.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.762</Modified>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\TimersListingPage.xbf">
+      <PackagePath>Pages\TimersListingPage.xbf</PackagePath>
+      <Modified>2018-12-05T12:23:34.995</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\TimersListing.xbf">
-      <PackagePath>TimersListing.xbf</PackagePath>
-      <Modified>2018-12-04T13:48:34.763</Modified>
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\SettingsPage.xbf">
+      <PackagePath>Pages\SettingsPage.xbf</PackagePath>
+      <Modified>2018-12-05T12:23:34.996</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.17763.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -580,13 +584,13 @@
       <PackagePath>WinMetadata\Microsoft.UI.Xaml.winmd</PackagePath>
       <Modified>2018-10-18T16:35:10.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2018-12-04T12:28:11.630</Modified>
+      <Modified>2018-12-05T12:07:18.795</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\Dropbox\Development\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
+    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
       <PackagePath>SousChef.exe</PackagePath>
-      <Modified>2018-12-04T13:48:35.729</Modified>
+      <Modified>2018-12-05T12:23:35.598</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -5,15 +5,38 @@
       <RootProperty Name="Resources" />
     </RootType>
     <RootType FullName="Microsoft.UI.Xaml.Controls.XamlControlsResources" />
+    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Children" />
+      <RootProperty Name="ColumnDefinitions" />
+      <RootProperty Name="RowDefinitions" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
+      <RootMethod Name="GetRow" />
+      <RootMethod Name="SetRow" />
+    </RootType>
+    <RootType FullName="SousChef.Controls.SCWebView" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Resources" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
-      <RootProperty Name="Children" />
+    <RootType FullName="SousChef.Pages.HomePage" />
+    <RootType FullName="Microsoft.UI.Xaml.Controls.NavigationViewItem">
+      <RootProperty Name="Tag" />
+      <RootProperty Name="Icon" />
+      <RootProperty Name="Content" />
     </RootType>
-    <RootType FullName="SousChef.HomePage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Control">
+      <RootProperty Name="BorderThickness" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Setter">
+      <RootProperty Name="Property" />
+      <RootProperty Name="Value" />
+    </RootType>
     <RootType FullName="Microsoft.UI.Xaml.Controls.NavigationView">
       <RootProperty Name="CompactModeThresholdWidth" />
       <RootProperty Name="MenuItems" />
@@ -22,11 +45,6 @@
       <RootEvent Name="Loaded" />
       <RootEvent Name="ItemInvoked" />
       <RootEvent Name="BackRequested" />
-    </RootType>
-    <RootType FullName="Microsoft.UI.Xaml.Controls.NavigationViewItem">
-      <RootProperty Name="Tag" />
-      <RootProperty Name="Icon" />
-      <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Microsoft.UI.Xaml.Controls.NavigationViewItemSeparator" />
     <RootType FullName="Microsoft.UI.Xaml.Controls.NavigationViewItemHeader">
@@ -45,12 +63,25 @@
       <RootEvent Name="NavigationFailed" />
     </RootType>
     <RootType FullName="SousChef.MainPage" />
-    <RootType FullName="SousChef.SettingsPage" />
-    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
+      <RootProperty Name="Height" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
       <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox" />
-    <RootType FullName="SousChef.SousChef_WebView" />
-    <RootType FullName="SousChef.TimersListing" />
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="FontFamily" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Text" />
+    </RootType>
+    <RootType FullName="SousChef.Pages.RecipePage" />
+    <RootType FullName="SousChef.Pages.TimersListingPage" />
+    <RootType FullName="SousChef.Pages.SettingsPage" />
   </Roots.RootTypes>
 </Roots>
