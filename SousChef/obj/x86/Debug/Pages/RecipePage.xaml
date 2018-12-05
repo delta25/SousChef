@@ -5,6 +5,7 @@
     xmlns:local="using:SousChef.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:SousChef.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
@@ -25,6 +26,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Button Width="auto" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Background="Transparent">
@@ -36,10 +38,17 @@
         <Button Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
         </Button>
-        <TextBox Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL" Style="{StaticResource NoClearTextBox}"></TextBox>
+        <TextBox x:ConnectionId='2' Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL"
+                                     
+                 x:Name="urlBar"
+                 Style="{StaticResource NoClearTextBox}"></TextBox>
         <Button Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
         </Button>
+
+        <Grid x:ConnectionId='3' Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" x:Name="webViewGrid">
+            <!--Items added programatically-->
+        </Grid>
     </Grid>
 </Page>
 

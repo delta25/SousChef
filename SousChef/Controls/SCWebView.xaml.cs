@@ -19,9 +19,32 @@ namespace SousChef.Controls
 {
     public sealed partial class SCWebView : UserControl
     {
-        public SCWebView()
+        private TextBox urlBar;
+
+        public SCWebView(TextBox urlBar)
         {
             this.InitializeComponent();
+
+            this.urlBar = urlBar;
+            if (!string.IsNullOrEmpty(this.urlBar.Text))
+                Navigate(this.urlBar.Text);
+            else
+                Navigate("http://www.google.com");
+
+        }
+
+        public void Navigate(string url)
+        {
+            if (!url.StartsWith("http://"))
+                url = "http://" + url;
+
+            webView.Navigate(new Uri(url));
+        }
+        
+
+        private void WebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            urlBar.Text = args.Uri.AbsoluteUri;
         }
     }
 }

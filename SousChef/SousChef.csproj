@@ -122,6 +122,7 @@
     <Compile Include="Controls\SCWebView.xaml.cs">
       <DependentUpon>SCWebView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GridHelpers.cs" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>

@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-
+        <WebView x:ConnectionId='2' x:Name="webView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                                ></WebView>
     </Grid>
 </UserControl>
 

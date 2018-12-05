@@ -24,6 +24,11 @@
       <RootMethod Name="GetRowSpan" />
       <RootMethod Name="SetRowSpan" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.WebView">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootEvent Name="NavigationStarting" />
+    </RootType>
     <RootType FullName="SousChef.Controls.SCWebView" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
@@ -121,6 +126,7 @@
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="Style" />
       <RootProperty Name="SelectionHighlightColor" />
+      <RootEvent Name="KeyUp" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
       <RootProperty Name="FontFamily" />

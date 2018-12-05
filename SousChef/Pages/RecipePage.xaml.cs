@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SousChef.Controls;
+using SousChef.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,7 +29,22 @@ namespace SousChef.Pages
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
+            webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
 
+            var defaultWebView = new SCWebView(urlBar);
+            webViewGrid.Children.Add(defaultWebView);
+            GridHelpers.SetElementCoordinates(defaultWebView, 0, 0);
+        }
+
+        private void UrlBar_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+                {
+                    scWebView.Navigate(urlBar.Text);
+                }
+            }
         }
     }
 }

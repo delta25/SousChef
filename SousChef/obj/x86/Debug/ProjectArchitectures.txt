@@ -1,1 +1,1 @@
-C:\PersonalDev\SousChef\SousChef\SousChef.csproj;x86
+C:\dev\SousChef\SousChef\SousChef.csproj;x86

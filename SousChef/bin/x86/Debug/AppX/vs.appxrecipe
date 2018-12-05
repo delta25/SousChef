@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>NB-ASC-MB11</Machine>
-    <WindowsUser>markb</WindowsUser>
+    <Machine>DESKTOP-Q9K16UU</Machine>
+    <WindowsUser>Markb</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1</PackageIdentityName>
     <PackageIdentityPublisher>CN=Markb</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\PersonalDev\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\dev\SousChef\SousChef\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\dev\SousChef\SousChef\bin\x86\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>9DECF22D7F321B5B12614DD70EABC01CF6738839DE86524B069E0058EB332A0D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1_1.0.0.0_x86__y9x8g3wkfqay2</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>1e5c3f58-f8da-46fb-835b-fef6c5c1bdd1_y9x8g3wkfqay2!App</RegisteredUserModeAppID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T14:34:05.192</Modified>
+      <Modified>2018-12-05T17:31:11.190</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\SousChef.exe">
       <PackagePath>entrypoint\SousChef.exe</PackagePath>
-      <Modified>2018-12-05T14:34:04.736</Modified>
+      <Modified>2018-12-05T17:31:10.061</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -214,9 +214,9 @@
       <PackagePath>System.Collections.Immutable.dll</PackagePath>
       <Modified>2016-06-11T22:13:16.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\.nuget\packages\system.collections.nongeneric\4.0.1\lib\netstandard1.3\System.Collections.NonGeneric.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.collections.nongeneric\4.0.1\lib\netstandard1.3\System.Collections.NonGeneric.dll">
       <PackagePath>System.Collections.NonGeneric.dll</PackagePath>
-      <Modified>2016-06-11T21:13:22.000</Modified>
+      <Modified>2016-06-11T22:13:22.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.collections.specialized\4.0.1\lib\netstandard1.3\System.Collections.Specialized.dll">
       <PackagePath>System.Collections.Specialized.dll</PackagePath>
@@ -450,9 +450,9 @@
       <PackagePath>System.ServiceModel.Security.dll</PackagePath>
       <Modified>2018-07-19T14:45:26.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Markb\.nuget\packages\system.text.encoding.codepages\4.0.1\runtimes\win\lib\netstandard1.3\System.Text.Encoding.CodePages.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.text.encoding.codepages\4.0.1\runtimes\win\lib\netstandard1.3\System.Text.Encoding.CodePages.dll">
       <PackagePath>System.Text.Encoding.CodePages.dll</PackagePath>
-      <Modified>2016-06-11T21:14:46.000</Modified>
+      <Modified>2016-06-11T22:14:46.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.text.regularexpressions\4.1.0\lib\netcore50\System.Text.RegularExpressions.dll">
       <PackagePath>System.Text.RegularExpressions.dll</PackagePath>
@@ -502,79 +502,79 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2018-10-23T00:33:40.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2018-12-05T06:42:55.944</Modified>
+      <Modified>2018-12-04T18:23:41.825</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2018-12-05T06:42:55.930</Modified>
+      <Modified>2018-12-04T18:23:41.777</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.931</Modified>
+      <Modified>2018-12-04T18:23:41.780</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.932</Modified>
+      <Modified>2018-12-04T18:23:41.785</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.933</Modified>
+      <Modified>2018-12-04T18:23:41.787</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.933</Modified>
+      <Modified>2018-12-04T18:23:41.791</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.934</Modified>
+      <Modified>2018-12-04T18:23:41.794</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-12-05T06:42:55.935</Modified>
+      <Modified>2018-12-04T18:23:41.797</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\SousChef.xr.xml">
       <PackagePath>SousChef.xr.xml</PackagePath>
-      <Modified>2018-12-05T14:33:33.152</Modified>
+      <Modified>2018-12-05T17:31:09.597</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.584</Modified>
+      <Modified>2018-12-05T17:31:09.653</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Controls\SCWebView.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Controls\SCWebView.xbf">
       <PackagePath>Controls\SCWebView.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.585</Modified>
+      <Modified>2018-12-05T17:31:09.654</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\HomePage.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Pages\HomePage.xbf">
       <PackagePath>Pages\HomePage.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.586</Modified>
+      <Modified>2018-12-05T17:31:09.656</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.587</Modified>
+      <Modified>2018-12-05T17:31:09.657</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Pages\RecipePage.xbf">
       <PackagePath>Pages\RecipePage.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.588</Modified>
+      <Modified>2018-12-05T17:31:09.659</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\TimersListingPage.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Pages\TimersListingPage.xbf">
       <PackagePath>Pages\TimersListingPage.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.588</Modified>
+      <Modified>2018-12-05T17:31:09.660</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Pages\SettingsPage.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Pages\SettingsPage.xbf">
       <PackagePath>Pages\SettingsPage.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.589</Modified>
+      <Modified>2018-12-05T17:31:09.662</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Styles\NoClearTextBox.xbf">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Styles\NoClearTextBox.xbf">
       <PackagePath>Styles\NoClearTextBox.xbf</PackagePath>
-      <Modified>2018-12-05T14:34:04.583</Modified>
+      <Modified>2018-12-05T17:31:09.651</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.17763.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -588,13 +588,13 @@
       <PackagePath>WinMetadata\Microsoft.UI.Xaml.winmd</PackagePath>
       <Modified>2018-10-18T16:35:10.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2018-12-05T14:33:33.896</Modified>
+      <Modified>2018-12-05T17:10:52.418</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\PersonalDev\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
+    <AppxPackagedFile Include="C:\dev\SousChef\SousChef\bin\x86\Debug\Core\SousChef.exe">
       <PackagePath>SousChef.exe</PackagePath>
-      <Modified>2018-12-05T14:34:05.189</Modified>
+      <Modified>2018-12-05T17:31:11.185</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
