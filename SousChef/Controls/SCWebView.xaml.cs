@@ -28,11 +28,25 @@ namespace SousChef.Controls
         public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation)
         {
             this.InitializeComponent();
-            this.notifyOfNavigation = notifyOfNavigation;
             webViewId = Guid.NewGuid();
 
+            this.notifyOfNavigation = notifyOfNavigation;
+
+            closeButtonBar.PointerEntered += ShowCloseButtonBar;
+            closeButtonBar.PointerExited += HideCloseButtonBar;
+            closeButtonBar.PointerMoved += ShowCloseButtonBar;
             SetUpNavigationCheckTimer();
             Navigate(initUrl);
+        }
+
+        private void ShowCloseButtonBar(object sender, PointerRoutedEventArgs e)
+        {
+            closeButtonBar.Visibility = Visibility.Visible;
+        }
+
+        private void HideCloseButtonBar(object sender, PointerRoutedEventArgs e)
+        {
+            closeButtonBar.Visibility = Visibility.Collapsed;
         }
 
         private void SetUpNavigationCheckTimer()

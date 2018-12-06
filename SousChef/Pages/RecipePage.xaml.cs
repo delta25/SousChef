@@ -46,14 +46,23 @@ namespace SousChef.Pages
 
         private void AddWebViewPane(object sender, RoutedEventArgs e)
         {
-            string initUrl = "https://google.com";
+            string initUrl = "https://www.google.com/";
+
             webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
             if (!string.IsNullOrEmpty(urlBar.Text))
-                initUrl = urlBar.Text;                
-            
+                initUrl = urlBar.Text;
+
             var webView = new SCWebView(initUrl, NotifiedOfNavigation);
             webViewGrid.Children.Add(webView);
             GridHelpers.SetElementCoordinates(webView, webViewGrid.Children.Count() - 1, 0);
+
+            // If we have 2 or more panels, give some padding to the right most panel
+            if (webViewGrid.Children.Count() >= 2)
+            {
+                webView.Margin = new Thickness(5, 0, 0, 0);
+                var panelToTheLeft = webViewGrid.Children[webViewGrid.Children.Count() - 2];
+                ((SCWebView)panelToTheLeft).Margin = new Thickness(((SCWebView)panelToTheLeft).Margin.Left, 0, 5, 0);
+            }
         }
 
         private void Refresh(object sender, RoutedEventArgs e)
@@ -76,7 +85,7 @@ namespace SousChef.Pages
 
         private void NavigateAndUpdate(string url, Guid? except = null)
         {
-            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>().Where(x=>!x.webViewId.Equals(except)))
+            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
                 scWebView.Navigate(url);
         }
 
@@ -84,6 +93,12 @@ namespace SousChef.Pages
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
                 NavigateAndUpdate(urlBar.Text);
+        }
+
+        private void ClosePaneWithGuid(Guid toRemove)
+        {
+            var webViewToRemove = webViewGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
+            webViewGrid.Children.Remove(webViewToRemove);
         }
     }
 }

@@ -9,7 +9,27 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <WebView x:Name="webView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></WebView>
+    <Grid x:Name="scWebViewGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <WebView x:Name="webView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                 Grid.Column="0" Grid.Row="0"
+                 Grid.ColumnSpan="1" Grid.RowSpan="2">
+        </WebView>
+
+        <Grid x:Name="closeButtonBar" Grid.Column="0" Grid.Row="0" Background="Transparent" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="#6d6b68" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Opacity=".8" />
+            <TextBlock Padding="0,5,5,5" Grid.Column="1" FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
+        </Grid>
     </Grid>
 </UserControl>
