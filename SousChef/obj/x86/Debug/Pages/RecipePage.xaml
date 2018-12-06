@@ -29,24 +29,24 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Width="auto" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Background="Transparent">
+        <Button x:ConnectionId='2' x:Name="backButton" Width="auto" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72B;"/>
         </Button>
-        <Button Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
+        <Button x:ConnectionId='3' x:Name="forwardButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72A;"/>
         </Button>
-        <Button Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Grid.Row="0" Background="Transparent">
+        <Button x:ConnectionId='4' x:Name="refreshButton" Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
         </Button>
-        <TextBox x:ConnectionId='2' Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL"
+        <TextBox x:ConnectionId='5' Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL"
                                      
                  x:Name="urlBar"
                  Style="{StaticResource NoClearTextBox}"></TextBox>
-        <Button Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Grid.Row="0" Background="Transparent">
+        <Button x:ConnectionId='6' x:Name="splitPaneButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Grid.Row="0" Background="Transparent">
             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
         </Button>
 
-        <Grid x:ConnectionId='3' Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" x:Name="webViewGrid">
+        <Grid x:ConnectionId='7' Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" x:Name="webViewGrid">
             <!--Items added programatically-->
         </Grid>
     </Grid>

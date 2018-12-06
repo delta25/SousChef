@@ -29,22 +29,57 @@ namespace SousChef.Pages
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
+            backButton.Click += NavigateBack;
+            forwardButton.Click += NavigateForward;
+            refreshButton.Click += Refresh;
+            splitPaneButton.Click += AddWebViewPane;
 
-            var defaultWebView = new SCWebView(urlBar);
-            webViewGrid.Children.Add(defaultWebView);
-            GridHelpers.SetElementCoordinates(defaultWebView, 0, 0);
+            AddWebViewPane(null, null);
+        }
+
+        public int UpdateStuff(string url, Guid invokerGuid)
+        {
+            NavigateAndUpdate(url, invokerGuid);
+            urlBar.Text = url;
+            return 1;
+        }
+
+        private void AddWebViewPane(object sender, RoutedEventArgs e)
+        {
+            webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
+            var webView = new SCWebView(UpdateStuff);
+            webViewGrid.Children.Add(webView);
+            GridHelpers.SetElementCoordinates(webView, webViewGrid.Children.Count() - 1, 0);
+        }
+
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+                scWebView.Refresh();
+        }
+
+        private void NavigateForward(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+                scWebView.NavigateForward();
+        }
+
+        private void NavigateBack(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+                scWebView.NavigateBack();
+        }
+
+        private void NavigateAndUpdate(string url, Guid? except = null)
+        {
+            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>().Where(x=>!x.webViewId.Equals(except)))
+                scWebView.Navigate(url);
         }
 
         private void UrlBar_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
-                {
-                    scWebView.Navigate(urlBar.Text);
-                }
-            }
+                NavigateAndUpdate(urlBar.Text);
         }
     }
 }

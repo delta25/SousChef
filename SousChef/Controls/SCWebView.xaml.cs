@@ -19,32 +19,62 @@ namespace SousChef.Controls
 {
     public sealed partial class SCWebView : UserControl
     {
-        private TextBox urlBar;
+        private Func<string, Guid, int> navigateFunc;
 
-        public SCWebView(TextBox urlBar)
+        public Guid webViewId { get; set; }
+
+        private string currentUrl;
+
+        public SCWebView(Func<string, Guid, int> navigateFunc)
         {
             this.InitializeComponent();
 
-            this.urlBar = urlBar;
-            if (!string.IsNullOrEmpty(this.urlBar.Text))
-                Navigate(this.urlBar.Text);
-            else
-                Navigate("http://www.google.com");
+            webView.NavigationStarting += WebView_NavigationStarting;
+            webView.NavigationCompleted += WebView_NavigationStarting;
 
+            this.navigateFunc = navigateFunc;
+
+            webViewId = Guid.NewGuid();
+
+            Navigate("google.com");
         }
 
         public void Navigate(string url)
         {
-            if (!url.StartsWith("http://"))
+            if (currentUrl == url) return;
+
+            if (!(url.StartsWith("http://") || url.StartsWith("https://")))
                 url = "http://" + url;
 
             webView.Navigate(new Uri(url));
         }
-        
+
+        private void WebView_NavigationStarting(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+
+            currentUrl = args.Uri.AbsoluteUri;
+            this.navigateFunc(args.Uri.AbsoluteUri, this.webViewId);
+        }
 
         private void WebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
-            urlBar.Text = args.Uri.AbsoluteUri;
+            currentUrl = args.Uri.AbsoluteUri;
+            this.navigateFunc(args.Uri.AbsoluteUri, this.webViewId);
+        }
+
+        internal void NavigateBack()
+        {
+            webView.GoBack();
+        }
+
+        internal void NavigateForward()
+        {
+            webView.GoForward();
+        }
+
+        internal void Refresh()
+        {
+            webView.Refresh();
         }
     }
 }

@@ -27,7 +27,6 @@
     <RootType FullName="Windows.UI.Xaml.Controls.WebView">
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
-      <RootEvent Name="NavigationStarting" />
     </RootType>
     <RootType FullName="SousChef.Controls.SCWebView" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
