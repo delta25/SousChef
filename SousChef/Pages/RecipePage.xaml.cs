@@ -37,7 +37,7 @@ namespace SousChef.Pages
             AddWebViewPane(null, null);
         }
 
-        public int UpdateStuff(string url, Guid invokerGuid)
+        public int NotifiedOfNavigation(string url, Guid invokerGuid)
         {
             NavigateAndUpdate(url, invokerGuid);
             urlBar.Text = url;
@@ -46,8 +46,12 @@ namespace SousChef.Pages
 
         private void AddWebViewPane(object sender, RoutedEventArgs e)
         {
+            string initUrl = "https://google.com";
             webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
-            var webView = new SCWebView(UpdateStuff);
+            if (!string.IsNullOrEmpty(urlBar.Text))
+                initUrl = urlBar.Text;                
+            
+            var webView = new SCWebView(initUrl, NotifiedOfNavigation);
             webViewGrid.Children.Add(webView);
             GridHelpers.SetElementCoordinates(webView, webViewGrid.Children.Count() - 1, 0);
         }

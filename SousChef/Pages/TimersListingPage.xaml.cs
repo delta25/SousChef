@@ -43,7 +43,7 @@ namespace SousChef.Pages
             myGrid.Children.Add(webView);
             Grid.SetColumn(webView, 0);
 
-            var webView2 = new SCWebView(null);
+            var webView2 = new SCWebView(null, null);
 
             myGrid.Children.Add(webView2);
             Grid.SetColumn(webView2, 1);

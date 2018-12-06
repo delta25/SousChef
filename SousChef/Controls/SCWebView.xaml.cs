@@ -19,24 +19,28 @@ namespace SousChef.Controls
 {
     public sealed partial class SCWebView : UserControl
     {
-        private Func<string, Guid, int> navigateFunc;
+        private Func<string, Guid, int> notifyOfNavigation;
 
         public Guid webViewId { get; set; }
 
         private string currentUrl;
 
-        public SCWebView(Func<string, Guid, int> navigateFunc)
+        public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation)
         {
             this.InitializeComponent();
-
-            webView.NavigationStarting += WebView_NavigationStarting;
-            webView.NavigationCompleted += WebView_NavigationStarting;
-
-            this.navigateFunc = navigateFunc;
-
+            this.notifyOfNavigation = notifyOfNavigation;
             webViewId = Guid.NewGuid();
 
-            Navigate("google.com");
+            SetUpNavigationCheckTimer();
+            Navigate(initUrl);
+        }
+
+        private void SetUpNavigationCheckTimer()
+        {
+            DispatcherTimer navigationCheckTimer = new DispatcherTimer();
+            navigationCheckTimer.Tick += NavigationCheckTimer_Tick;
+            navigationCheckTimer.Interval = new TimeSpan(0, 0, 0, 0, 250);
+            navigationCheckTimer.Start();
         }
 
         public void Navigate(string url)
@@ -49,17 +53,26 @@ namespace SousChef.Controls
             webView.Navigate(new Uri(url));
         }
 
+        void NavigationCheckTimer_Tick(object sender, object e)
+        {
+            var displayedUrl = webView.Source.AbsoluteUri.ToString();
+            if (currentUrl != displayedUrl)
+            {
+                currentUrl = displayedUrl;
+                this.notifyOfNavigation(displayedUrl, this.webViewId);
+            }
+        }
+
         private void WebView_NavigationStarting(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-
             currentUrl = args.Uri.AbsoluteUri;
-            this.navigateFunc(args.Uri.AbsoluteUri, this.webViewId);
+            this.notifyOfNavigation(args.Uri.AbsoluteUri, this.webViewId);
         }
 
         private void WebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             currentUrl = args.Uri.AbsoluteUri;
-            this.navigateFunc(args.Uri.AbsoluteUri, this.webViewId);
+            this.notifyOfNavigation(args.Uri.AbsoluteUri, this.webViewId);
         }
 
         internal void NavigateBack()
