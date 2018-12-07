@@ -9,7 +9,11 @@
     xmlns:extensions="using:SousChef.Extensions"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
+    <Page.Resources>
+        <Style TargetType="muxc:NavigationViewItem">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <muxc:NavigationView x:Name="NavView" CompactModeThresholdWidth="0"
@@ -19,9 +23,7 @@
                                 AlwaysShowHeader="False">
             <muxc:NavigationView.MenuItems>
 
-                <extensions:SCNavigationViewItem  Tag="home" Icon="Home" Content="Home" AdditionalActionButtonClick="{x:Bind ChickenPopple}"/>
-                <muxc:NavigationViewItemSeparator/>
-                <muxc:NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages"/>
+                <muxc:NavigationViewItem  Tag="home" Icon="Home" Content="Home" />
 
                 <muxc:NavigationViewItem Tag="timers" Content="Timers">
                     <muxc:NavigationViewItem.Icon>
@@ -29,19 +31,15 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Tag="games" Content="Games">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;"/>
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemSeparator/>
 
-                <muxc:NavigationViewItem Tag="music" Icon="Audio" Content="Music" />
-                
+                <extensions:SCNavigationViewItemHeader x:Name="RecipePagesHeader" Content="Recipes"
+                                                       AdditionalActionButtonClicked="AddRecipe"/>
 
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.PaneTitle>
-                My title
+                SousChef
             </muxc:NavigationView.PaneTitle>
 
 

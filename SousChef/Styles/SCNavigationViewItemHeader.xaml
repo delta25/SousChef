@@ -1,0 +1,42 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SousChef.Extensions">
+
+
+    <Style TargetType="local:SCNavigationViewItemHeader">
+        <Setter Property="IsEnabled" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SCNavigationViewItemHeader">
+                    <Grid>
+                        <Grid x:Name="InnerHeaderGrid" Height="40" HorizontalAlignment="Stretch" Margin="{ThemeResource NavigationViewItemInnerHeaderMargin}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                x:Name="HeaderText"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="0,-1,0,-1"
+                                Style="{StaticResource NavigationViewItemHeaderTextStyle}"
+                                Text="{TemplateBinding Content}"
+                                TextWrapping="NoWrap"/>
+
+                            <Button x:Name="additionalActionButton" Grid.Column="1" Margin="0,0,10,0">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
+                            </Button>
+
+                        </Grid>
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

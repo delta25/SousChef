@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.System;
 using muxc = Microsoft.UI.Xaml.Controls;
 using SousChef.Pages;
+using SousChef.Models;
+using SousChef.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -55,15 +57,6 @@ namespace SousChef
             // here to load the home page.
             NavView_Navigate("home", new EntranceNavigationTransitionInfo());
 
-            NavView.MenuItems.Add(new muxc.NavigationViewItem
-            {
-                Content = "MyNewRecipe",
-                Icon = new SymbolIcon((Symbol)0xF1AD),
-                Tag = "content"
-            });
-
-            _pages.Add(("content", typeof(RecipePage)));
-
             // Add keyboard accelerators for backwards navigation.
             var goBack = new KeyboardAccelerator { Key = VirtualKey.GoBack };
             goBack.Invoked += BackInvoked;
@@ -95,25 +88,21 @@ namespace SousChef
 
         private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
         {
-            Type _page = null;
+            Type page = null;
             if (navItemTag == "settings")
             {
-                _page = typeof(SettingsPage);
+                page = typeof(SettingsPage);
             }
             else
             {
                 var item = _pages.FirstOrDefault(p => p.Tag.Equals(navItemTag));
-                _page = item.Page;
+                page = item.Page;
             }
-            // Get the page type before navigation so you can prevent duplicate
-            // entries in the backstack.
-            var preNavPageType = ContentFrame.CurrentSourcePageType;
 
-            // Only navigate if the selected page isn't currently loaded.
-            if (!(_page is null) && !Type.Equals(preNavPageType, _page))
-            {
-                ContentFrame.Navigate(_page, null, transitionInfo);
-            }
+            if (page == typeof(RecipePage))
+                RecipeNavigationHelper.GetRecipeNavigationHelper().SetCurrentRecipePage(navItemTag);
+
+            ContentFrame.Navigate(page, null, transitionInfo);
         }
 
         private void NavView_BackRequested(muxc.NavigationView sender,
@@ -154,6 +143,12 @@ namespace SousChef
                 NavView.SelectedItem = (muxc.NavigationViewItem)NavView.SettingsItem;
                 NavView.Header = "Settings";
             }
+            else if (ContentFrame.SourcePageType == typeof(RecipePage))
+            {
+                NavView.SelectedItem = NavView.MenuItems
+                    .OfType<muxc.NavigationViewItem>()
+                    .First(n => n.Tag.Equals(RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Tag));
+            }
             else if (ContentFrame.SourcePageType != null)
             {
                 var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
@@ -162,15 +157,30 @@ namespace SousChef
                     .OfType<muxc.NavigationViewItem>()
                     .First(n => n.Tag.Equals(item.Tag));
 
-                NavView.Header =
-                    ((muxc.NavigationViewItem)NavView.SelectedItem)?.Content?.ToString();
+                NavView.Header = ((muxc.NavigationViewItem)NavView.SelectedItem)?.Content?.ToString();
             }
         }
 
-        private void ChickenPopple(object sender, RoutedEventArgs e)
+        private void AddRecipe(object sender, RoutedEventArgs e)
         {
-            Application.Current.Exit();
+            var recipeNavHelper = RecipeNavigationHelper.GetRecipeNavigationHelper();
 
+            var recipeNavRef = new RecipeNavigationReference()
+            {
+                Id = recipeNavHelper.GetNextRecipeId(),
+                Title = "New Recipe",
+                Tag = $"recipe_{ recipeNavHelper.GetNextRecipeId() }"
+            };
+
+            NavView.MenuItems.Add(new muxc.NavigationViewItem
+            {
+                Content = recipeNavRef.Title,
+                Icon = new SymbolIcon((Symbol)0xED56),
+                Tag = recipeNavRef.Tag
+            });
+
+            recipeNavHelper.AddRecipeNavigationReference(recipeNavRef);
+            _pages.Add((recipeNavRef.Tag, typeof(RecipePage)));
         }
     }
 }

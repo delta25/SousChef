@@ -1,5 +1,6 @@
 ﻿using SousChef.Controls;
 using SousChef.Helpers;
+using SousChef.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -37,6 +39,26 @@ namespace SousChef.Pages
             AddWebViewPane(null, null);
         }
 
+        protected async override void OnNavigatingFrom(NavigatingCancelEventArgs args)
+        {
+            // Take screenshot of recipeGrid
+            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+            await renderTargetBitmap.RenderAsync(recipeGrid, (int)recipeGrid.ActualWidth, (int)recipeGrid.ActualHeight);
+
+            var recipeCache = new RecipeCache();
+
+            // Get number of webview panels and each of their scroll values
+            foreach( var panel in panelGrid.Children)
+            {
+                var panelCacheValue = ((SCWebView)panel).GetCacheValues();
+                recipeCache.RecipePanels.Add(panelCacheValue);
+            }
+            // Get current URL
+            // Save in custom cache
+            // Navigate
+        }
+
+
         public int NotifiedOfNavigation(string url, Guid invokerGuid)
         {
             NavigateAndUpdate(url, invokerGuid);
@@ -48,44 +70,44 @@ namespace SousChef.Pages
         {
             string initUrl = "https://www.google.com/";
 
-            webViewGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
+            panelGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
             if (!string.IsNullOrEmpty(urlBar.Text))
                 initUrl = urlBar.Text;
 
             var webView = new SCWebView(initUrl, NotifiedOfNavigation, ClosePaneWithGuid);
-            webViewGrid.Children.Add(webView);
-            GridHelpers.SetElementCoordinates(webView, webViewGrid.Children.Count() - 1, 0);
+            panelGrid.Children.Add(webView);
+            GridHelpers.SetElementCoordinates(webView, panelGrid.Children.Count() - 1, 0);
 
-            // If we have 2 or more panels, give some padding to the right most panel
-            if (webViewGrid.Children.Count() >= 2)
+            // If we have 2 or more panels, give some padding to the keep them separated 
+            if (panelGrid.Children.Count() >= 2)
             {
                 webView.Margin = new Thickness(5, 0, 0, 0);
-                var panelToTheLeft = webViewGrid.Children[webViewGrid.Children.Count() - 2];
+                var panelToTheLeft = panelGrid.Children[panelGrid.Children.Count() - 2];
                 ((SCWebView)panelToTheLeft).Margin = new Thickness(((SCWebView)panelToTheLeft).Margin.Left, 0, 5, 0);
             }
         }
 
         private void Refresh(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
                 scWebView.Refresh();
         }
 
         private void NavigateForward(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
                 scWebView.NavigateForward();
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
                 scWebView.NavigateBack();
         }
 
         private void NavigateAndUpdate(string url, Guid? except = null)
         {
-            foreach (var scWebView in webViewGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
+            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
                 scWebView.Navigate(url);
         }
 
@@ -97,17 +119,17 @@ namespace SousChef.Pages
 
         private int ClosePaneWithGuid(Guid toRemove)
         {
-            var webViewToRemove = webViewGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
-            var columnIndexToRemove = webViewGrid.Children.IndexOf(webViewToRemove);
+            var webViewToRemove = panelGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
+            var columnIndexToRemove = panelGrid.Children.IndexOf(webViewToRemove);
 
             // Move all items with column index > columnIndexToRemove to the left
-            var numberOfColumns = webViewGrid.ColumnDefinitions.Count();
+            var numberOfColumns = panelGrid.ColumnDefinitions.Count();
             for (int i = columnIndexToRemove + 1; i < numberOfColumns; i++)            
-                GridHelpers.SetElementCoordinates(webViewGrid.Children[i] as SCWebView, i - 1, 0);
+                GridHelpers.SetElementCoordinates(panelGrid.Children[i] as SCWebView, i - 1, 0);
             
             // Remove the last column
-            webViewGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
-            webViewGrid.Children.Remove(webViewToRemove);
+            panelGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
+            panelGrid.Children.Remove(webViewToRemove);
 
             GC.Collect();
             return 1;

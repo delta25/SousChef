@@ -1,10 +1,14 @@
-﻿using System;
+﻿using SousChef.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using WebFunctions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,7 +32,6 @@ namespace SousChef.Controls
         public int borderWidthInt { get => 5; }
 
         private string currentUrl;
-        private bool closeButtonVisible;
 
         public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation, Func<Guid, int> closePaneWithGuid)
         {
@@ -44,13 +47,14 @@ namespace SousChef.Controls
             borderBottom.PointerEntered += BottomBorderEntered;
                         
             //borderTop.DragEnter += TopBorderEntered;
-
             closeButton.Click += ClosePane;
+
+            webView.AddWebAllowedObject("WebFunctions", winRTObject);
 
             SetUpNavigationCheckTimer();
             SetUpCloseCloseButtonBarTimer();
             Navigate(initUrl);
-        }        
+        }
 
         #region Border Events
 
@@ -128,6 +132,28 @@ namespace SousChef.Controls
 
         #endregion
 
+
+        Functions winRTObject = new Functions();
+        public SCWebViewPanelCache GetCacheValues()
+        {
+
+            // Expose the native WinRT object on the page's global object
+            webView.InvokeScriptAsync("eval", new[] { "if(WebFunctions.Pepper()){window.location.href='http://bing.com'" });
+
+            var scrollValue = GetScrollValue().Result;
+            return new SCWebViewPanelCache
+            {
+                ScrollValue = 11
+            };
+        }
+        public async Task<int> GetScrollValue()
+        {
+            //window.NotifyApp.GetScrollValue(window.pageYOffset || document.documentElement.scrollTop);
+            //var x = await webView.InvokeScriptAsync("eval", new[] { "function doStuff(){ } doStuff();" });
+            return 1;
+        }
+
+
         private void SetUpNavigationCheckTimer()
         {
             DispatcherTimer navigationCheckTimer = new DispatcherTimer();
@@ -180,7 +206,8 @@ namespace SousChef.Controls
 
         internal void Refresh()
         {
-            webView.Refresh();
+            GetCacheValues();//webView.Refresh();
         }
     }
+    
 }
