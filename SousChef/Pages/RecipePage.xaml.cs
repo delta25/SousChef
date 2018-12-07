@@ -52,7 +52,7 @@ namespace SousChef.Pages
             if (!string.IsNullOrEmpty(urlBar.Text))
                 initUrl = urlBar.Text;
 
-            var webView = new SCWebView(initUrl, NotifiedOfNavigation);
+            var webView = new SCWebView(initUrl, NotifiedOfNavigation, ClosePaneWithGuid);
             webViewGrid.Children.Add(webView);
             GridHelpers.SetElementCoordinates(webView, webViewGrid.Children.Count() - 1, 0);
 
@@ -95,10 +95,11 @@ namespace SousChef.Pages
                 NavigateAndUpdate(urlBar.Text);
         }
 
-        private void ClosePaneWithGuid(Guid toRemove)
+        private int ClosePaneWithGuid(Guid toRemove)
         {
             var webViewToRemove = webViewGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
             webViewGrid.Children.Remove(webViewToRemove);
+            return 1;
         }
     }
 }

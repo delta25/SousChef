@@ -9,27 +9,49 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid x:Name="scWebViewGrid">
+    <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{x:Bind borderWidth}"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="{x:Bind borderWidth}"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="{x:Bind borderWidth}"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="{x:Bind borderWidth}"/>
         </Grid.RowDefinitions>
-
-        <WebView x:Name="webView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                 Grid.Column="0" Grid.Row="0"
-                 Grid.ColumnSpan="1" Grid.RowSpan="2">
-        </WebView>
-
-        <Grid x:Name="closeButtonBar" Grid.Column="0" Grid.Row="0" Background="Transparent" Visibility="Visible">
+        
+        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Grid Background="#6d6b68" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Opacity=".8" />
-            <TextBlock Padding="0,5,5,5" Grid.Column="1" FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <WebView x:Name="webView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                 Grid.Column="0" Grid.Row="0"
+                 Grid.ColumnSpan="1" Grid.RowSpan="2">
+            </WebView>
+
+            <Grid x:Name="closeButtonBar" Grid.Column="0" Grid.Row="0" Background="Transparent" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="#6d6b68" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Opacity=".8" />
+                <Button x:Name="closeButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
+                </Button>
+            </Grid>
         </Grid>
+
+        <Grid Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" x:Name="borderLeft"></Grid>
+        <Grid Background="Transparent" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" x:Name="borderTop"></Grid>
+        <Grid Background="Transparent" Grid.Column="3" Grid.Row="1" Grid.RowSpan="1" x:Name="borderRight"></Grid>
+        <Grid Background="Transparent" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" x:Name="borderBottom"></Grid>
+        
+        
     </Grid>
 </UserControl>

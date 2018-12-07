@@ -20,33 +20,47 @@ namespace SousChef.Controls
     public sealed partial class SCWebView : UserControl
     {
         private Func<string, Guid, int> notifyOfNavigation;
+        private Func<Guid, int> notifyOfClosing;
 
         public Guid webViewId { get; set; }
 
-        private string currentUrl;
+        public string borderWidth { get => "5px"; }
 
-        public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation)
+        private string currentUrl;
+        private bool closeButtonVisible;
+
+        public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation, Func<Guid, int> closePaneWithGuid)
         {
             this.InitializeComponent();
             webViewId = Guid.NewGuid();
 
             this.notifyOfNavigation = notifyOfNavigation;
+            this.notifyOfClosing = closePaneWithGuid;
 
-            closeButtonBar.PointerEntered += ShowCloseButtonBar;
-            closeButtonBar.PointerExited += HideCloseButtonBar;
-            closeButtonBar.PointerMoved += ShowCloseButtonBar;
+            borderLeft.PointerEntered += FlipCloseBluttonVisibility;
+            borderTop.PointerEntered += FlipCloseBluttonVisibility;
+            borderRight.PointerEntered += FlipCloseBluttonVisibility;
+            borderBottom.PointerEntered += FlipCloseBluttonVisibility;
+
+            borderTop.DragOver += FlipCloseBluttonVisibility;
+
+            closeButton.Click += ClosePane;
+
             SetUpNavigationCheckTimer();
             Navigate(initUrl);
         }
 
-        private void ShowCloseButtonBar(object sender, PointerRoutedEventArgs e)
+        private void ClosePane(object sender, RoutedEventArgs e)
         {
-            closeButtonBar.Visibility = Visibility.Visible;
+            notifyOfClosing(this.webViewId);
         }
 
-        private void HideCloseButtonBar(object sender, PointerRoutedEventArgs e)
+        private void FlipCloseBluttonVisibility(object sender, RoutedEventArgs e)
         {
-            closeButtonBar.Visibility = Visibility.Collapsed;
+            closeButtonVisible = !closeButtonVisible;
+            closeButtonBar.Visibility = closeButtonVisible ? Visibility.Visible : Visibility.Collapsed;
+
+            //Add timer to automatically hide the bar if it is currently showing after 3 seconds
         }
 
         private void SetUpNavigationCheckTimer()
