@@ -166,5 +166,11 @@ namespace SousChef
                     ((muxc.NavigationViewItem)NavView.SelectedItem)?.Content?.ToString();
             }
         }
+
+        private void ChickenPopple(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+
+        }
     }
 }

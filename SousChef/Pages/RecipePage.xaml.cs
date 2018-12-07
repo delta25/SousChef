@@ -98,7 +98,18 @@ namespace SousChef.Pages
         private int ClosePaneWithGuid(Guid toRemove)
         {
             var webViewToRemove = webViewGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
+            var columnIndexToRemove = webViewGrid.Children.IndexOf(webViewToRemove);
+
+            // Move all items with column index > columnIndexToRemove to the left
+            var numberOfColumns = webViewGrid.ColumnDefinitions.Count();
+            for (int i = columnIndexToRemove + 1; i < numberOfColumns; i++)            
+                GridHelpers.SetElementCoordinates(webViewGrid.Children[i] as SCWebView, i - 1, 0);
+            
+            // Remove the last column
+            webViewGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
             webViewGrid.Children.Remove(webViewToRemove);
+
+            GC.Collect();
             return 1;
         }
     }

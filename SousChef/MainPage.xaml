@@ -6,44 +6,48 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:extensions="using:SousChef.Extensions"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.Resources>
-        <Style TargetType="muxc:NavigationViewItem">
-            <Setter Property="BorderThickness" Value="0" />            
-        </Style>
-    </Page.Resources>
+    
 
     <Grid>
         <muxc:NavigationView x:Name="NavView" CompactModeThresholdWidth="0"
                                 Loaded="NavView_Loaded"
                                 ItemInvoked="NavView_ItemInvoked"
-                                BackRequested="NavView_BackRequested">
+                                BackRequested="NavView_BackRequested"
+                                AlwaysShowHeader="False">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem  Tag="home" Icon="Home" Content="Home"/>
+
+                <extensions:SCNavigationViewItem  Tag="home" Icon="Home" Content="Home" AdditionalActionButtonClick="{x:Bind ChickenPopple}"/>
                 <muxc:NavigationViewItemSeparator/>
                 <muxc:NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages"/>
+
                 <muxc:NavigationViewItem Tag="timers" Content="Timers">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE916;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+
                 <muxc:NavigationViewItem Tag="games" Content="Games">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="music" Icon="Audio" Content="Music"/>
+
+                <muxc:NavigationViewItem Tag="music" Icon="Audio" Content="Music" />
+                
+
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.PaneTitle>
                 My title
             </muxc:NavigationView.PaneTitle>
 
-            
-                <Frame x:Name="ContentFrame" Padding="0,0,0,0" IsTabStop="True"
+
+            <Frame x:Name="ContentFrame" Padding="0,0,0,0" IsTabStop="True"
                        NavigationFailed="ContentFrame_NavigationFailed"/>
-            
+
         </muxc:NavigationView>
     </Grid>
 </Page>
