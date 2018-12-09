@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="recipeGrid">
+    <Grid x:Name="recipeGrid" Background="white">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -50,5 +50,10 @@
               Background="LightGray" Margin="0,10,0,0">
             <!--Items added programatically-->
         </Grid>
+
+        <Image x:Name="cacheImage" Stretch="None"
+               Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="2"
+               Visibility="Collapsed"
+               Canvas.ZIndex="100"/>
     </Grid>
 </Page>

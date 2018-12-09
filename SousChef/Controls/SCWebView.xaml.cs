@@ -13,8 +13,9 @@ namespace SousChef.Controls
     {
         public Guid webViewId { get; set; }
 
-        private Func<string, Guid, int> notifyOfNavigation;
-        private Func<Guid, int> notifyOfClosing;
+        private Action<string, Guid> notifyOfNavigation;
+        private Action<Guid> notifyOfClosing;
+        private Action<Guid> finishedRestoringFromCache;
 
         ScrollValueRetrievalHelper scrollValueRetrievalHelper = new ScrollValueRetrievalHelper();
 
@@ -34,9 +35,6 @@ namespace SousChef.Controls
             //borderTop.DragEnter += TopBorderEntered;
 
             closeButton.Click += ClosePane;
-
-            SetUpNavigationCheckTimer();
-            SetUpScrollUpdateTimer();
             SetUpCloseCloseButtonBarTimer();
         }
 
@@ -45,18 +43,26 @@ namespace SousChef.Controls
             webViewId = Guid.NewGuid();
 
             Navigate(initUrl);
+
+            SetUpNavigationCheckTimer();
+            SetUpScrollUpdateTimer();
         }
 
         #region Observer registrations
 
-        public void AddNavigationObserver(Func<string, Guid, int> notifyOfNavigation)
+        public void AddNavigationObserver(Action<string, Guid> notifyOfNavigation)
         {
             this.notifyOfNavigation = notifyOfNavigation;
         }
 
-        public void AddPaneClosingObserver(Func<Guid, int> closePaneWithGuid)
+        public void AddPaneClosingObserver(Action<Guid> closePaneWithGuid)
         {
             this.notifyOfClosing = closePaneWithGuid;
+        }
+
+        public void AddPaneFinishedRestoringObserver(Action<Guid> paneRestoredFromCache)
+        {
+            this.finishedRestoringFromCache = paneRestoredFromCache;
         }
 
         #endregion
@@ -157,6 +163,8 @@ namespace SousChef.Controls
 
         void NavigationCheckTimer_Tick(object sender, object e)
         {
+            if (webView.Source == null) return;
+
             var displayedUrl = webView.Source.AbsoluteUri.ToString();
             if (currentUrl != displayedUrl)
             {
@@ -167,7 +175,7 @@ namespace SousChef.Controls
             }
         }
 
-        async void ScrollUpdateTimer_TickAsync(object sender, object e)
+        private async void ScrollUpdateTimer_TickAsync(object sender, object e)
         {
             try
             {
@@ -198,17 +206,6 @@ namespace SousChef.Controls
             webView.Navigate(new Uri(url));
         }
 
-        private void WebView_NavigationStarting(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            currentUrl = args.Uri.AbsoluteUri;
-            this.notifyOfNavigation(args.Uri.AbsoluteUri, this.webViewId);
-        }
-
-        private void WebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            currentUrl = args.Uri.AbsoluteUri;
-            this.notifyOfNavigation(args.Uri.AbsoluteUri, this.webViewId);
-        }
 
         internal void NavigateBack()
         {
@@ -222,14 +219,14 @@ namespace SousChef.Controls
 
         internal void Refresh()
         {
-            GetCacheValues();//webView.Refresh();
+            webView.Refresh();
         }
 
         #endregion
 
         #region Cache methods
 
-        public IPaneCache GetCacheValues()
+        public PaneCache GetCacheValues()
         {
             Debug.WriteLine(scrollValueRetrievalHelper.ScrollValue);
             return new SCWebViewPaneCache
@@ -240,9 +237,28 @@ namespace SousChef.Controls
             };
         }
 
-        public void RestoreFromCache(IPaneCache paneCache)
+        private SCWebViewPaneCache currentPaneCache;
+
+        public void RestoreFromCache(PaneCache paneCache)
         {
-            SCWebViewPaneCache scWebViewPaneCache = (SCWebViewPaneCache)paneCache;
+            currentPaneCache = (SCWebViewPaneCache)paneCache;
+
+            webViewId = currentPaneCache.Id;
+
+            webView.DOMContentLoaded += RestoreWebViewFromCacheComplete;
+            webView.Source = new Uri(currentPaneCache.Url);
+        }
+        
+        private async void RestoreWebViewFromCacheComplete(WebView sender, WebViewDOMContentLoadedEventArgs args)
+        {
+            currentUrl = args.Uri.AbsoluteUri;
+
+             await webView.InvokeScriptAsync("eval",
+                new[] { "function scroll(){window.scrollTo(0," + currentPaneCache.ScrollValue + ");} scroll();" });
+
+            finishedRestoringFromCache(this.webViewId);
+            SetUpNavigationCheckTimer();
+            SetUpScrollUpdateTimer();
         }
 
         #endregion

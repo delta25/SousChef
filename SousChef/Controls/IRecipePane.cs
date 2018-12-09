@@ -10,10 +10,10 @@ namespace SousChef.Controls
 {
     public interface IRecipePane
     {
-        void AddPaneClosingObserver(Func<Guid, int> closePaneWithGuid);
+        void AddPaneClosingObserver(Action<Guid> closePaneWithGuid);
 
-        IPaneCache GetCacheValues();
-        void RestoreFromCache(IPaneCache paneCache);
-
+        PaneCache GetCacheValues();
+        void RestoreFromCache(PaneCache paneCache);
+        void AddPaneFinishedRestoringObserver(Action<Guid> paneRestoredFromCache);
     }
 }

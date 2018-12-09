@@ -8,6 +8,10 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,14 +35,13 @@ namespace SousChef.Pages
         public RecipePage()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            //this.NavigationCacheMode = NavigationCacheMode.Required;
 
             backButton.Click += NavigateBack;
             forwardButton.Click += NavigateForward;
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
 
-            AddWebViewPane(null, null);
         }
 
         #region Recipe page events
@@ -46,6 +49,9 @@ namespace SousChef.Pages
         protected async override void OnNavigatingFrom(NavigatingCancelEventArgs args)
         {
             var recipeCache = new RecipeCache();
+
+            // Uurl
+            recipeCache.Url = urlBar.Text;
 
             // Take screenshot of recipeGrid
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
@@ -72,13 +78,20 @@ namespace SousChef.Pages
             {
                 var recipeCache = RecipeCachingHelper.cache[recipeId];
 
+                // Restore URL
+                urlBar.Text = recipeCache.Url;
+
                 // Restore image and display that
+                cacheImage.Source = recipeCache.CacheImage;
+                cacheImage.Visibility = Visibility.Visible;
 
                 // Tell panes to restore from cache
                 foreach (var paneCache in recipeCache.RecipePanes)
-                {
                     RestorePaneFromCache(paneCache);
-                }
+            }
+            else
+            {
+                AddWebViewPane(null, null);
             }
         }
 
@@ -114,7 +127,7 @@ namespace SousChef.Pages
             AddUiPane(webView);
         }
 
-        private void RestorePaneFromCache(IPaneCache paneCache)
+        private void RestorePaneFromCache(PaneCache paneCache)
         {
             var element = PaneFactory.RestorePaneFromCache(paneCache);
 
@@ -122,6 +135,9 @@ namespace SousChef.Pages
                 ((SCWebView)element).AddNavigationObserver(NotifiedOfNavigation);
 
             ((IRecipePane)element).AddPaneClosingObserver(ClosePaneWithGuid);
+            ((IRecipePane)element).AddPaneFinishedRestoringObserver(PaneRestoredFromCache);
+
+            AddUiPane(element);
         }
 
         #region Browser control
@@ -160,14 +176,22 @@ namespace SousChef.Pages
 
         #region Pane events
 
-        private int NotifiedOfNavigation(string url, Guid invokerGuid)
+        private void PaneRestoredFromCache(Guid paneId)
+        {
+            var paneCache = RecipeCachingHelper.cache[this.recipeId].RecipePanes.FirstOrDefault(x => x.Id.Equals(paneId));
+            paneCache.Restored = true;
+
+            if (RecipeCachingHelper.cache[this.recipeId].RecipePanes.All(x => x.Restored))
+                cacheImage.Visibility = Visibility.Collapsed;
+        }
+
+        private void NotifiedOfNavigation(string url, Guid invokerGuid)
         {
             NavigateAndUpdate(url, invokerGuid);
             urlBar.Text = url;
-            return 1;
         }
 
-        private int ClosePaneWithGuid(Guid toRemove)
+        private void ClosePaneWithGuid(Guid toRemove)
         {
             var webViewToRemove = paneGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
             var columnIndexToRemove = paneGrid.Children.IndexOf(webViewToRemove);
@@ -182,7 +206,6 @@ namespace SousChef.Pages
             paneGrid.Children.Remove(webViewToRemove);
 
             GC.Collect();
-            return 1;
         }
 
         #endregion

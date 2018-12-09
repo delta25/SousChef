@@ -11,7 +11,7 @@ namespace SousChef.Helpers
 {
     public static class PaneFactory
     {
-        public static FrameworkElement RestorePaneFromCache(IPaneCache paneCache)
+        public static FrameworkElement RestorePaneFromCache(PaneCache paneCache)
         {
             if (paneCache.GetType() == typeof(SCWebViewPaneCache))
             {
