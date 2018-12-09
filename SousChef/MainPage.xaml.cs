@@ -100,9 +100,14 @@ namespace SousChef
             }
 
             if (page == typeof(RecipePage))
+            {
                 RecipeNavigationHelper.GetRecipeNavigationHelper().SetCurrentRecipePage(navItemTag);
+                var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
-            ContentFrame.Navigate(page, null, transitionInfo);
+                ContentFrame.Navigate(page, recipeId, transitionInfo);
+            }
+            else
+                ContentFrame.Navigate(page, null, transitionInfo);
         }
 
         private void NavView_BackRequested(muxc.NavigationView sender,
@@ -167,7 +172,7 @@ namespace SousChef
 
             var recipeNavRef = new RecipeNavigationReference()
             {
-                Id = recipeNavHelper.GetNextRecipeId(),
+                Id = Guid.NewGuid(),
                 Title = "New Recipe",
                 Tag = $"recipe_{ recipeNavHelper.GetNextRecipeId() }"
             };

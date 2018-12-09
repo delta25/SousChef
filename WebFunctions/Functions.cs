@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,19 +9,15 @@ using Windows.Foundation.Metadata;
 namespace WebFunctions
 {
     [AllowForWeb]
-    public sealed class Functions
+    public sealed class ScrollValueRetrievalHelper
     {
         private int scrollValue;
 
-        public void GetScrollValue(int _scrollValue)
-        {
-            scrollValue = 23535;
-            //.WriteLine("Called from WebView! {0}", keyPress);
-        }
+        public int ScrollValue { get => scrollValue; set => scrollValue = value; }
 
-        public bool Pepper()
+        public void setScrollValue(double _scrollValue)
         {
-            return true;            //.WriteLine("Called from WebView! {0}", keyPress);
+            this.ScrollValue = (int)_scrollValue;
         }
     }
 }

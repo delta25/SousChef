@@ -1,60 +1,65 @@
 ﻿using SousChef.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WebFunctions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace SousChef.Controls
 {
-    public sealed partial class SCWebView : UserControl
+    public sealed partial class SCWebView : UserControl, IRecipePane
     {
+        public Guid webViewId { get; set; }
+
         private Func<string, Guid, int> notifyOfNavigation;
         private Func<Guid, int> notifyOfClosing;
 
-        public Guid webViewId { get; set; }
+        ScrollValueRetrievalHelper scrollValueRetrievalHelper = new ScrollValueRetrievalHelper();
 
         public string borderWidth { get => borderWidthInt + "px"; }
         public int borderWidthInt { get => 5; }
 
         private string currentUrl;
 
-        public SCWebView(string initUrl, Func<string, Guid, int> notifyOfNavigation, Func<Guid, int> closePaneWithGuid)
+        public SCWebView()
         {
             this.InitializeComponent();
-            webViewId = Guid.NewGuid();
-
-            this.notifyOfNavigation = notifyOfNavigation;
-            this.notifyOfClosing = closePaneWithGuid;
 
             borderLeft.PointerEntered += LeftBorderEntered;
             borderTop.PointerEntered += TopBorderEntered;
             borderRight.PointerEntered += RightBorderEntered;
             borderBottom.PointerEntered += BottomBorderEntered;
-                        
             //borderTop.DragEnter += TopBorderEntered;
+
             closeButton.Click += ClosePane;
 
-            webView.AddWebAllowedObject("WebFunctions", winRTObject);
-
             SetUpNavigationCheckTimer();
+            SetUpScrollUpdateTimer();
             SetUpCloseCloseButtonBarTimer();
+        }
+
+        public SCWebView(string initUrl) : this()
+        {
+            webViewId = Guid.NewGuid();
+
             Navigate(initUrl);
         }
+
+        #region Observer registrations
+
+        public void AddNavigationObserver(Func<string, Guid, int> notifyOfNavigation)
+        {
+            this.notifyOfNavigation = notifyOfNavigation;
+        }
+
+        public void AddPaneClosingObserver(Func<Guid, int> closePaneWithGuid)
+        {
+            this.notifyOfClosing = closePaneWithGuid;
+        }
+
+        #endregion
 
         #region Border Events
 
@@ -121,7 +126,7 @@ namespace SousChef.Controls
         {
             if (closeCloseButtonBarTimer.IsEnabled) closeCloseButtonBarTimer.Stop();
             closeButtonBar.Visibility = Visibility.Visible;
-            closeCloseButtonBarTimer.Start();            
+            closeCloseButtonBarTimer.Start();
         }
 
 
@@ -132,27 +137,7 @@ namespace SousChef.Controls
 
         #endregion
 
-
-        Functions winRTObject = new Functions();
-        public SCWebViewPanelCache GetCacheValues()
-        {
-
-            // Expose the native WinRT object on the page's global object
-            webView.InvokeScriptAsync("eval", new[] { "if(WebFunctions.Pepper()){window.location.href='http://bing.com'" });
-
-            var scrollValue = GetScrollValue().Result;
-            return new SCWebViewPanelCache
-            {
-                ScrollValue = 11
-            };
-        }
-        public async Task<int> GetScrollValue()
-        {
-            //window.NotifyApp.GetScrollValue(window.pageYOffset || document.documentElement.scrollTop);
-            //var x = await webView.InvokeScriptAsync("eval", new[] { "function doStuff(){ } doStuff();" });
-            return 1;
-        }
-
+        #region Timers
 
         private void SetUpNavigationCheckTimer()
         {
@@ -162,14 +147,12 @@ namespace SousChef.Controls
             navigationCheckTimer.Start();
         }
 
-        public void Navigate(string url)
+        private void SetUpScrollUpdateTimer()
         {
-            if (currentUrl == url) return;
-
-            if (!(url.StartsWith("http://") || url.StartsWith("https://")))
-                url = "http://" + url;
-
-            webView.Navigate(new Uri(url));
+            DispatcherTimer scrollUpdateTimer = new DispatcherTimer();
+            scrollUpdateTimer.Tick += ScrollUpdateTimer_TickAsync;
+            scrollUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 250);
+            scrollUpdateTimer.Start();
         }
 
         void NavigationCheckTimer_Tick(object sender, object e)
@@ -177,9 +160,42 @@ namespace SousChef.Controls
             var displayedUrl = webView.Source.AbsoluteUri.ToString();
             if (currentUrl != displayedUrl)
             {
+                webView.AddWebAllowedObject("ScrollHelper", scrollValueRetrievalHelper);
+
                 currentUrl = displayedUrl;
                 this.notifyOfNavigation(displayedUrl, this.webViewId);
             }
+        }
+
+        async void ScrollUpdateTimer_TickAsync(object sender, object e)
+        {
+            try
+            {
+                await webView.InvokeScriptAsync("eval",
+                    new[] {
+                "ScrollHelper.setScrollValue(window.pageYOffset || document.documentElement.scrollTop)"
+                    });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Browser functions
+
+        public void Navigate(string url)
+        {
+            if (currentUrl == url) return;
+
+            if (!(url.StartsWith("http://") || url.StartsWith("https://")))
+                url = "http://" + url;
+
+            webView.AddWebAllowedObject("ScrollHelper", scrollValueRetrievalHelper);
+
+            webView.Navigate(new Uri(url));
         }
 
         private void WebView_NavigationStarting(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -208,6 +224,28 @@ namespace SousChef.Controls
         {
             GetCacheValues();//webView.Refresh();
         }
+
+        #endregion
+
+        #region Cache methods
+
+        public IPaneCache GetCacheValues()
+        {
+            Debug.WriteLine(scrollValueRetrievalHelper.ScrollValue);
+            return new SCWebViewPaneCache
+            {
+                Id = this.webViewId,
+                Url = this.currentUrl,
+                ScrollValue = scrollValueRetrievalHelper.ScrollValue
+            };
+        }
+
+        public void RestoreFromCache(IPaneCache paneCache)
+        {
+            SCWebViewPaneCache scWebViewPaneCache = (SCWebViewPaneCache)paneCache;
+        }
+
+        #endregion
     }
-    
+
 }

@@ -9,18 +9,19 @@ namespace SousChef.Models
 {
     public class RecipeCache
     {
-        public string Url { get; set; }
-        public List<IPanelCache> RecipePanels = new List<IPanelCache>();
+        public List<IPaneCache> RecipePanes = new List<IPaneCache>();
         public RenderTargetBitmap CacheImage { get; set; }
     }
 
-    public interface IPanelCache
+    public interface IPaneCache
     {
 
     }
 
-    public class SCWebViewPanelCache : IPanelCache
+    public class SCWebViewPaneCache : IPaneCache
     {
+        public string Url { get; set; }
         public double ScrollValue { get; set; }
+        public Guid Id { get; internal set; }
     }
 }

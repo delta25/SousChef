@@ -26,6 +26,8 @@ namespace SousChef.Pages
     /// </summary>
     public sealed partial class RecipePage : Page
     {
+        public Guid recipeId { get; set; }
+
         public RecipePage()
         {
             this.InitializeComponent();
@@ -39,75 +41,112 @@ namespace SousChef.Pages
             AddWebViewPane(null, null);
         }
 
+        #region Recipe page events
+
         protected async override void OnNavigatingFrom(NavigatingCancelEventArgs args)
         {
+            var recipeCache = new RecipeCache();
+
             // Take screenshot of recipeGrid
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
             await renderTargetBitmap.RenderAsync(recipeGrid, (int)recipeGrid.ActualWidth, (int)recipeGrid.ActualHeight);
 
-            var recipeCache = new RecipeCache();
+            recipeCache.CacheImage = renderTargetBitmap;
 
             // Get number of webview panels and each of their scroll values
-            foreach( var panel in panelGrid.Children)
-            {
-                var panelCacheValue = ((SCWebView)panel).GetCacheValues();
-                recipeCache.RecipePanels.Add(panelCacheValue);
-            }
-            // Get current URL
+            foreach (var pane in paneGrid.Children)
+                recipeCache.RecipePanes.Add(((SCWebView)pane).GetCacheValues());
+
             // Save in custom cache
+            RecipeCachingHelper.cache[recipeId] = recipeCache;
+
             // Navigate
         }
 
-
-        public int NotifiedOfNavigation(string url, Guid invokerGuid)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            NavigateAndUpdate(url, invokerGuid);
-            urlBar.Text = url;
-            return 1;
+            this.recipeId = (Guid)e.Parameter;
+
+            // Check cache for that recipe id
+            if (RecipeCachingHelper.cache.ContainsKey(recipeId))
+            {
+                var recipeCache = RecipeCachingHelper.cache[recipeId];
+
+                // Restore image and display that
+
+                // Tell panes to restore from cache
+                foreach (var paneCache in recipeCache.RecipePanes)
+                {
+                    RestorePaneFromCache(paneCache);
+                }
+            }
+        }
+
+        #endregion
+
+        private void AddUiPane(FrameworkElement pane)
+        {
+            paneGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
+            paneGrid.Children.Add(pane);
+            GridHelpers.SetElementCoordinates(pane, paneGrid.Children.Count() - 1, 0);
+
+            // If we have 2 or more panes, give some padding to the keep them separated 
+            if (paneGrid.Children.Count() >= 2)
+            {
+                pane.Margin = new Thickness(5, 0, 0, 0);
+                var paneToTheLeft = paneGrid.Children[paneGrid.Children.Count() - 2];
+                ((FrameworkElement)paneToTheLeft).Margin = new Thickness(((FrameworkElement)paneToTheLeft).Margin.Left, 0, 5, 0);
+            }
         }
 
         private void AddWebViewPane(object sender, RoutedEventArgs e)
         {
             string initUrl = "https://www.google.com/";
 
-            panelGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
             if (!string.IsNullOrEmpty(urlBar.Text))
                 initUrl = urlBar.Text;
 
-            var webView = new SCWebView(initUrl, NotifiedOfNavigation, ClosePaneWithGuid);
-            panelGrid.Children.Add(webView);
-            GridHelpers.SetElementCoordinates(webView, panelGrid.Children.Count() - 1, 0);
+            var webView = new SCWebView(initUrl);
 
-            // If we have 2 or more panels, give some padding to the keep them separated 
-            if (panelGrid.Children.Count() >= 2)
-            {
-                webView.Margin = new Thickness(5, 0, 0, 0);
-                var panelToTheLeft = panelGrid.Children[panelGrid.Children.Count() - 2];
-                ((SCWebView)panelToTheLeft).Margin = new Thickness(((SCWebView)panelToTheLeft).Margin.Left, 0, 5, 0);
-            }
+            webView.AddNavigationObserver(NotifiedOfNavigation);
+            webView.AddPaneClosingObserver(ClosePaneWithGuid);
+
+            AddUiPane(webView);
         }
+
+        private void RestorePaneFromCache(IPaneCache paneCache)
+        {
+            var element = PaneFactory.RestorePaneFromCache(paneCache);
+
+            if (element.GetType() == typeof(SCWebView))
+                ((SCWebView)element).AddNavigationObserver(NotifiedOfNavigation);
+
+            ((IRecipePane)element).AddPaneClosingObserver(ClosePaneWithGuid);
+        }
+
+        #region Browser control
 
         private void Refresh(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
                 scWebView.Refresh();
         }
 
         private void NavigateForward(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
                 scWebView.NavigateForward();
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
         {
-            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>())
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
                 scWebView.NavigateBack();
         }
 
         private void NavigateAndUpdate(string url, Guid? except = null)
         {
-            foreach (var scWebView in panelGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
                 scWebView.Navigate(url);
         }
 
@@ -117,22 +156,35 @@ namespace SousChef.Pages
                 NavigateAndUpdate(urlBar.Text);
         }
 
+        #endregion
+
+        #region Pane events
+
+        private int NotifiedOfNavigation(string url, Guid invokerGuid)
+        {
+            NavigateAndUpdate(url, invokerGuid);
+            urlBar.Text = url;
+            return 1;
+        }
+
         private int ClosePaneWithGuid(Guid toRemove)
         {
-            var webViewToRemove = panelGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
-            var columnIndexToRemove = panelGrid.Children.IndexOf(webViewToRemove);
+            var webViewToRemove = paneGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
+            var columnIndexToRemove = paneGrid.Children.IndexOf(webViewToRemove);
 
             // Move all items with column index > columnIndexToRemove to the left
-            var numberOfColumns = panelGrid.ColumnDefinitions.Count();
-            for (int i = columnIndexToRemove + 1; i < numberOfColumns; i++)            
-                GridHelpers.SetElementCoordinates(panelGrid.Children[i] as SCWebView, i - 1, 0);
-            
+            var numberOfColumns = paneGrid.ColumnDefinitions.Count();
+            for (int i = columnIndexToRemove + 1; i < numberOfColumns; i++)
+                GridHelpers.SetElementCoordinates(paneGrid.Children[i] as SCWebView, i - 1, 0);
+
             // Remove the last column
-            panelGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
-            panelGrid.Children.Remove(webViewToRemove);
+            paneGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
+            paneGrid.Children.Remove(webViewToRemove);
 
             GC.Collect();
             return 1;
         }
+
+        #endregion
     }
 }
