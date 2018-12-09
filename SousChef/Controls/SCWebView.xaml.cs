@@ -27,14 +27,14 @@ namespace SousChef.Controls
         public SCWebView()
         {
             this.InitializeComponent();
-
+            /*
             borderLeft.PointerEntered += LeftBorderEntered;
             borderTop.PointerEntered += TopBorderEntered;
             borderRight.PointerEntered += RightBorderEntered;
             borderBottom.PointerEntered += BottomBorderEntered;
             //borderTop.DragEnter += TopBorderEntered;
 
-            closeButton.Click += ClosePane;
+            closeButton.Click += ClosePane;*/
             SetUpCloseCloseButtonBarTimer();
         }
 
@@ -125,13 +125,13 @@ namespace SousChef.Controls
         private void HideCloseButtonBar(object sender = null, object e = null)
         {
             if (closeCloseButtonBarTimer.IsEnabled) closeCloseButtonBarTimer.Stop();
-            closeButtonBar.Visibility = Visibility.Collapsed;
+            //closeButtonBar.Visibility = Visibility.Collapsed;
         }
 
         private void ShowCloseButtonBar()
         {
             if (closeCloseButtonBarTimer.IsEnabled) closeCloseButtonBarTimer.Stop();
-            closeButtonBar.Visibility = Visibility.Visible;
+           // closeButtonBar.Visibility = Visibility.Visible;
             closeCloseButtonBarTimer.Start();
         }
 

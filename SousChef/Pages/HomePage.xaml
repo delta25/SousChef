@@ -5,10 +5,17 @@
     xmlns:local="using:SousChef"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:SousChef.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <StackPanel>
+            <local1:TestingControl >
+                Testing
 
+            </local1:TestingControl>
+            
+        </StackPanel>
     </Grid>
 </Page>

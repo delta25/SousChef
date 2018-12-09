@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="SousChef.Controls.SCWebView"
+    x:Class="SousChef.Controls.TestControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SousChef.Controls"
@@ -8,16 +8,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <WebView x:Name="webView"></WebView>
 
-
-    <!--<local:GenericPane>
-        <local:GenericPane.Content>
-
-            <StackPanel Orientation="Vertical">
-                <TextBox></TextBox>
-            </StackPanel>
-        </local:GenericPane.Content>
-    </local:GenericPane>-->
-
+    <Grid>
+        <ContentPresenter/>
+    </Grid>
 </UserControl>

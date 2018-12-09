@@ -1,0 +1,63 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SousChef.Controls">
+
+    <Style TargetType="local:GenericPane" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:GenericPane">
+                    <Grid Background="pink">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding borderWitdh}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5px"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5px"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5px"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <!--<ContentControl Background="blue"
+                                Grid.Column="0" Grid.Row="0"
+                                Grid.ColumnSpan="1" Grid.RowSpan="2" Content="{Binding InnerContent,ElementName=genericPane}" />-->
+
+                            <ContentPresenter Content="{Binding InnerContent}"/>
+
+                            <Grid x:Name="closeButtonBar" Grid.Column="0" Grid.Row="0" Background="Transparent" Visibility="Visible">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Background="#6d6b68" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Opacity=".8" />
+                                <Button x:Name="closeButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
+                                    <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE89F;"/>
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" x:Name="borderLeft"></Grid>
+                        <Grid Background="Transparent" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" x:Name="borderTop"></Grid>
+                        <Grid Background="Transparent" Grid.Column="3" Grid.Row="1" Grid.RowSpan="1" x:Name="borderRight"></Grid>
+                        <Grid Background="Transparent" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" x:Name="borderBottom"></Grid>
+
+
+                    </Grid>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
