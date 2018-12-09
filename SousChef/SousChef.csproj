@@ -119,12 +119,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IRecipePane.cs" />
     <Compile Include="Controls\SCWebView.xaml.cs">
       <DependentUpon>SCWebView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\SCNavigationViewItem.cs" />
     <Compile Include="Extensions\SCNavigationViewItemHeader.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
+    <Compile Include="Helpers\PanelFactory.cs" />
     <Compile Include="Helpers\RecipeCachingHelper.cs" />
     <Compile Include="Helpers\RecipeNavigationHelper.cs" />
     <Compile Include="Models\RecipeCache.cs" />
