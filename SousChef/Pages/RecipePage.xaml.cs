@@ -97,7 +97,7 @@ namespace SousChef.Pages
 
         #endregion
 
-        private void AddUiPane(FrameworkElement pane)
+        private void AddPane(FrameworkElement pane)
         {
             paneGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
             paneGrid.Children.Add(pane);
@@ -124,7 +124,7 @@ namespace SousChef.Pages
             webView.AddNavigationObserver(NotifiedOfNavigation);
             webView.AddPaneClosingObserver(ClosePaneWithGuid);
 
-            AddUiPane(webView);
+            AddPane(webView);
         }
 
         private void RestorePaneFromCache(PaneCache paneCache)
@@ -137,7 +137,7 @@ namespace SousChef.Pages
             ((IRecipePane)element).AddPaneClosingObserver(ClosePaneWithGuid);
             ((IRecipePane)element).AddPaneFinishedRestoringObserver(PaneRestoredFromCache);
 
-            AddUiPane(element);
+            AddPane(element);
         }
 
         #region Browser control
@@ -204,8 +204,6 @@ namespace SousChef.Pages
             // Remove the last column
             paneGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
             paneGrid.Children.Remove(webViewToRemove);
-
-            GC.Collect();
         }
 
         #endregion

@@ -14,6 +14,11 @@ namespace SousChef.Controls
 {    
     public sealed class PanelActionBar : Control
     {
+        public delegate void ActionBarButtonClicked(object sender, EventArgs e);
+        public event ActionBarButtonClicked CloseButtonClicked;
+
+        public Button closeButton { get; set; }
+
         public PanelActionBar()
         {            
             this.DefaultStyleKey = typeof(PanelActionBar);
@@ -21,6 +26,18 @@ namespace SousChef.Controls
 
         protected override void OnApplyTemplate()
         {
+            BindUIVariables();
+            AddEventListeners();
+        }
+
+        private void BindUIVariables()
+        {
+            closeButton = GetTemplateChild(nameof(closeButton)) as Button;
+        }
+
+        private void AddEventListeners()
+        {
+            closeButton.Click += (sender, e) => CloseButtonClicked(sender, EventArgs.Empty);
         }
     }
 }

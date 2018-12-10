@@ -27,15 +27,8 @@ namespace SousChef.Controls
         public SCWebView()
         {
             this.InitializeComponent();
-            /*
-            borderLeft.PointerEntered += LeftBorderEntered;
-            borderTop.PointerEntered += TopBorderEntered;
-            borderRight.PointerEntered += RightBorderEntered;
-            borderBottom.PointerEntered += BottomBorderEntered;
-            //borderTop.DragEnter += TopBorderEntered;
 
-            closeButton.Click += ClosePane;*/
-            SetUpCloseCloseButtonBarTimer();
+            genericPane.PaneClosingEvent += (sender, args) => notifyOfClosing(this.webViewId);
         }
 
         public SCWebView(string initUrl) : this()
@@ -67,81 +60,7 @@ namespace SousChef.Controls
 
         #endregion
 
-        #region Border Events
 
-        private void LeftBorderEntered(object sender, PointerRoutedEventArgs e)
-        {
-            var p = e.GetCurrentPoint(sender as UIElement);
-            //Coming in from the left
-            if (p.Position.X < (borderWidthInt - 1) * .5)
-                ShowCloseButtonBar();
-            else
-                HideCloseButtonBar();
-        }
-
-        private void TopBorderEntered(object sender, PointerRoutedEventArgs e)
-        {
-            var p = e.GetCurrentPoint(sender as UIElement);
-            //Coming in from the left
-            if (p.Position.Y < (borderWidthInt - 1) * .5)
-                ShowCloseButtonBar();
-            else
-                HideCloseButtonBar();
-        }
-
-        private void RightBorderEntered(object sender, PointerRoutedEventArgs e)
-        {
-            var p = e.GetCurrentPoint(sender as UIElement);
-            //Coming in from the left
-            if (p.Position.X < (borderWidthInt - 1) * .5)
-                HideCloseButtonBar();
-            else
-                ShowCloseButtonBar();
-        }
-
-        private void BottomBorderEntered(object sender, PointerRoutedEventArgs e)
-        {
-            var p = e.GetCurrentPoint(sender as UIElement);
-            //Coming in from the left
-            if (p.Position.Y < (borderWidthInt - 1) * .5)
-                HideCloseButtonBar();
-            else
-                ShowCloseButtonBar();
-        }
-
-        #endregion
-
-        #region Close button bar
-
-        DispatcherTimer closeCloseButtonBarTimer;
-
-        private void SetUpCloseCloseButtonBarTimer()
-        {
-            closeCloseButtonBarTimer = new DispatcherTimer();
-            closeCloseButtonBarTimer.Tick += HideCloseButtonBar;
-            closeCloseButtonBarTimer.Interval = new TimeSpan(0, 0, 3);
-        }
-
-        private void HideCloseButtonBar(object sender = null, object e = null)
-        {
-            if (closeCloseButtonBarTimer.IsEnabled) closeCloseButtonBarTimer.Stop();
-            //closeButtonBar.Visibility = Visibility.Collapsed;
-        }
-
-        private void ShowCloseButtonBar()
-        {
-            if (closeCloseButtonBarTimer.IsEnabled) closeCloseButtonBarTimer.Stop();
-           // closeButtonBar.Visibility = Visibility.Visible;
-            closeCloseButtonBarTimer.Start();
-        }
-
-
-        private void ClosePane(object sender, RoutedEventArgs e)
-        {
-            notifyOfClosing(this.webViewId);
-        }
-
-        #endregion
 
         #region Timers
 

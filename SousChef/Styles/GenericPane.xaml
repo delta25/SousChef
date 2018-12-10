@@ -3,20 +3,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SousChef.Controls">
 
+    <x:String x:Key="GenericPane.BorderWidth">5</x:String>
     <Style TargetType="local:GenericPane" >
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:GenericPane">
-                    <Grid>
+                    <Grid >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding borderWidth}"/>
+                            <ColumnDefinition Width="{StaticResource GenericPane.BorderWidth}"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5px"/>
+                            <ColumnDefinition Width="{StaticResource GenericPane.BorderWidth}"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="5px"/>
+                            <RowDefinition Height="{StaticResource GenericPane.BorderWidth}"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="5px"/>
+                            <RowDefinition Height="{StaticResource GenericPane.BorderWidth}"/>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
@@ -28,14 +29,13 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!--<ContentPresenter 
+                            <ContentPresenter 
                                 Grid.Column="0" Grid.Row="0"
-                                Grid.ColumnSpan="1" Grid.RowSpan="1"  />-->
-                            
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding borderWidth}"/>
+                                Grid.ColumnSpan="1" Grid.RowSpan="2"  />
 
+                            <!--<TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding borderWidth}"/>-->
 
-                            <local:PanelActionBar Grid.Column="0" Grid.Row="0" Visibility="Visible" />
+                            <local:PanelActionBar x:Name="panelActionBar" Grid.Column="0" Grid.Row="0" Visibility="Collapsed" />
                         </Grid>
 
                         <Grid Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" x:Name="borderLeft"></Grid>
