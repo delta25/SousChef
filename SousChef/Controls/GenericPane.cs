@@ -9,20 +9,8 @@ using Windows.UI.Xaml.Markup;
 
 namespace SousChef.Controls
 {
-    public class GenericPane : Control
+    public class GenericPane : ContentControl
     {
-        string borderWitdh = "5px";
-
-
-        public static readonly DependencyProperty InnerContentProperty =
-            DependencyProperty.Register("InnerContent", typeof(object), typeof(GenericPane), new PropertyMetadata(null));
-
-        public object InnerContent
-        {
-            get { return (object)GetValue(InnerContentProperty); }
-            set { SetValue(InnerContentProperty, value); }
-        }
-
         public GenericPane()
         {
             this.DefaultStyleKey = typeof(GenericPane);

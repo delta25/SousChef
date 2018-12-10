@@ -8,16 +8,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <WebView x:Name="webView"></WebView>
 
-
-    <!--<local:GenericPane>
-        <local:GenericPane.Content>
-
-            <StackPanel Orientation="Vertical">
-                <TextBox></TextBox>
-            </StackPanel>
-        </local:GenericPane.Content>
-    </local:GenericPane>-->
+    <local:GenericPane>
+        <WebView x:Name="webView"></WebView>
+    </local:GenericPane>
 
 </UserControl>

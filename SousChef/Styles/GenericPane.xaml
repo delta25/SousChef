@@ -28,12 +28,9 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-
-                            <!--<ContentControl Background="blue"
+                            <ContentPresenter 
                                 Grid.Column="0" Grid.Row="0"
-                                Grid.ColumnSpan="1" Grid.RowSpan="2" Content="{Binding InnerContent,ElementName=genericPane}" />-->
-
-                            <ContentPresenter Content="{Binding InnerContent}"/>
+                                Grid.ColumnSpan="1" Grid.RowSpan="2"  />
 
                             <Grid x:Name="closeButtonBar" Grid.Column="0" Grid.Row="0" Background="Transparent" Visibility="Visible">
                                 <Grid.ColumnDefinitions>
