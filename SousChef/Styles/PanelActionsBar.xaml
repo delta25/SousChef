@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SousChef.Controls">
+
+
+    <x:Double x:Key="PanelActionBarHeight">20</x:Double>
+    <Style TargetType="local:PanelActionBar" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PanelActionBar">
+
+                    <Grid Height="{StaticResource PanelActionBarHeight}"
+                          x:Name="closeButtonBar" Background="Transparent" Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Background="#6d6b68" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Opacity=".8" />
+                        <Button x:Name="closeButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE89F;"/>
+                        </Button>
+                    </Grid>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

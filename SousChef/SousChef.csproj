@@ -124,10 +124,7 @@
     <Compile Include="Controls\SCWebView.xaml.cs">
       <DependentUpon>SCWebView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TestControl.xaml.cs">
-      <DependentUpon>TestControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TestingControl.cs" />
+    <Compile Include="Controls\PanelActionBar.cs" />
     <Compile Include="Extensions\SCNavigationViewItem.cs" />
     <Compile Include="Extensions\SCNavigationViewItemHeader.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
@@ -178,10 +175,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TestControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,15 +203,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\PanelActionsBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\SCNavigationViewItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\SCNavigationViewItemHeader.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -237,7 +230,9 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebFunctions\WebFunctions.csproj">
       <Project>{9A9E2C26-CEB2-440F-A112-533BFDB41AAB}</Project>

@@ -9,11 +9,5 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <StackPanel>
-            <local1:TestingControl >
-                Testing
-            </local1:TestingControl>
-        </StackPanel>
-    </Grid>
+    
 </Page>

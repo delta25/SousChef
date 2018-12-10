@@ -11,8 +11,7 @@
                 <ResourceDictionary Source="./Styles/SCNavigationViewItem.xaml"/>
                 <ResourceDictionary Source="./Styles/SCNavigationViewItemHeader.xaml"/>
                 <ResourceDictionary Source="./Styles/GenericPane.xaml"/>
-                <ResourceDictionary Source="./Themes/Generic.xaml"/>
-
+                <ResourceDictionary Source="./Styles/PanelActionsBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

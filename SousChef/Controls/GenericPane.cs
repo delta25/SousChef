@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Markup;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace SousChef.Controls
 {
     public class GenericPane : ContentControl
     {
+        public string borderWidth
+        {
+            get { return "5px"; }
+            set { borderWidth = value; }
+        }
+
         public GenericPane()
         {
             this.DefaultStyleKey = typeof(GenericPane);
