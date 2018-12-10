@@ -119,7 +119,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CikkaControl.cs" />
     <Compile Include="Controls\GenericPane.cs" />
     <Compile Include="Controls\IRecipePane.cs" />
     <Compile Include="Controls\SCWebView.xaml.cs">
@@ -128,6 +127,7 @@
     <Compile Include="Controls\TestControl.xaml.cs">
       <DependentUpon>TestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TestingControl.cs" />
     <Compile Include="Extensions\SCNavigationViewItem.cs" />
     <Compile Include="Extensions\SCNavigationViewItemHeader.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />

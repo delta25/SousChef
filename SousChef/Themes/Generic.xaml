@@ -4,17 +4,18 @@
     xmlns:local="using:SousChef"
     xmlns:local2="using:SousChef.Controls">
 
+    <x:Double x:Key="myHeight">100</x:Double>
     <Style TargetType="local2:TestingControl" >
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local2:TestingControl">
                     <Border
-                        Height="200px"
+                        Height="{ThemeResource myHeight}"
                         Background="Green"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
 
-                        <ContentPresenter />
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
