@@ -4,18 +4,21 @@
     xmlns:local="using:SousChef"
     xmlns:local2="using:SousChef.Controls">
 
-    <x:Double x:Key="myHeight">100</x:Double>
-    <Style TargetType="local2:TestingControl" >
+    <x:Double x:Key="myHeight2">100</x:Double>
+    <Style TargetType="local2:TestingControl" >        
         <Setter Property="Template">
-            <Setter.Value>
+            <Setter.Value>                                
                 <ControlTemplate TargetType="local2:TestingControl">
+
                     <Border
-                        Height="{ThemeResource myHeight}"
+                        Height="{StaticResource myHeight2}"
                         Background="Green"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-
-                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Content.myText, RelativeSource={RelativeSource Self}}"/>
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

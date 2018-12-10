@@ -19,12 +19,16 @@ namespace SousChef.Controls
     {
         public TestingControl()
         {
+            Resources.Add(new KeyValuePair<object, object>("myHeight", 200));
             this.DefaultStyleKey = typeof(TestingControl);
-            
-            
+        }
 
-            var x  = (double)Resources["myHeight"];
+        public static readonly string myText = "test"; 
 
+        protected override void OnApplyTemplate()
+        {
+            var x = App.Current.Resources["myHeight2"];
+            var y = (int)Resources["myHeight"];
         }
 
         public object Content

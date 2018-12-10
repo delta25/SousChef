@@ -11,8 +11,8 @@
 
     <Grid>
         <StackPanel>
-            <local1:TestingControl >                
-                    Testing                
+            <local1:TestingControl >
+                Testing
             </local1:TestingControl>
         </StackPanel>
     </Grid>
