@@ -146,8 +146,7 @@ namespace SousChef.Controls
         #region Cache methods
 
         public PaneCache GetCacheValues()
-        {
-            Debug.WriteLine(scrollValueRetrievalHelper.ScrollValue);
+        {            
             return new SCWebViewPaneCache
             {
                 Id = this.webViewId,

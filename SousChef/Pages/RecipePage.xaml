@@ -11,43 +11,64 @@
     <Page.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
-                <ResourceDictionary Source="./../Themes/NoClearTextBox.xaml"/>
+                <ResourceDictionary Source="./../Themes/NoClearTextBox.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid x:Name="recipeGrid" Background="white">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="backButton" Width="auto" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Background="Transparent">
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72B;"/>
-        </Button>
-        <Button x:Name="forwardButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Grid.Row="0" Background="Transparent">
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72A;"/>
-        </Button>
-        <Button x:Name="refreshButton" Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Grid.Row="0" Background="Transparent">
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
-        </Button>
-        <TextBox Grid.Column="3" Grid.Row="0" PlaceholderText="Type a URL"
+        <Grid x:Name="recipeNameGrid" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Button x:Name="favouriteRecipe" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE734;"/>
+            </Button>
+
+            <controls:ConfirmCancelTextBox Grid.Column="1" TextBoxPlaceholderText="Give this recipe a name"/>
+
+        </Grid>
+
+        <Grid x:Name="urlBarGrid" Grid.Column="0" Grid.Row="1" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition  Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Width="auto" VerticalAlignment="Stretch" Grid.Column="0" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72B;"/>
+            </Button>
+            <Button x:Name="forwardButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72A;"/>
+            </Button>
+            <Button x:Name="refreshButton" Width="auto" VerticalAlignment="Stretch"  Grid.Column="2" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE72C;"/>
+            </Button>
+            <TextBox Grid.Column="3" PlaceholderText="Type a URL"
                  KeyUp="UrlBar_KeyUp"
                  x:Name="urlBar"
                  Style="{StaticResource NoClearTextBox}"></TextBox>
-        <Button x:Name="splitPaneButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Grid.Row="0" Background="Transparent">
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
-        </Button>
+            <Button x:Name="splitPaneButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
+            </Button>
+        </Grid>
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" x:Name="paneGrid"
-              Background="LightGray" Margin="0,10,0,0">
+        <Grid Grid.Column="0" Grid.Row="2" x:Name="paneGrid"
+              Background="LightGray" Margin="0,5,0,0">
             <!--Items added programatically-->
         </Grid>
 
