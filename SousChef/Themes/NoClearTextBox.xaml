@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SousChef.Styles">
+    xmlns:local="using:SousChef.Themes">
     
     <Style TargetType="TextBox" x:Key="NoClearTextBox" >
         <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />

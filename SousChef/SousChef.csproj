@@ -195,23 +195,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\NoClearTextBox.xaml">
+    <Page Include="Themes\NoClearTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\GenericPane.xaml">
+    <Page Include="Themes\GenericPane.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\PanelActionsBar.xaml">
+    <Page Include="Themes\PanelActionsBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\SCNavigationViewItem.xaml">
+    <Page Include="Themes\SCNavigationViewItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\SCNavigationViewItemHeader.xaml">
+    <Page Include="Themes\SCNavigationViewItemHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -230,9 +230,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WebFunctions\WebFunctions.csproj">
       <Project>{9A9E2C26-CEB2-440F-A112-533BFDB41AAB}</Project>
