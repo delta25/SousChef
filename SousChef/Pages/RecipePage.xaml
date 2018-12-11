@@ -37,7 +37,7 @@
                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE734;"/>
             </Button>
 
-            <controls:ConfirmCancelTextBox Grid.Column="1" PlaceholderText="Give this recipe a name"/>
+            <controls:ConfirmCancelTextBox x:Name="recipeNameTextBox" Grid.Column="1" PlaceholderText="Give this recipe a name" Text="{x:Bind recipeName, Mode=TwoWay}"/>
 
         </Grid>
 

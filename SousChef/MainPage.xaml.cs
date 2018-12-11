@@ -18,6 +18,7 @@ using muxc = Microsoft.UI.Xaml.Controls;
 using SousChef.Pages;
 using SousChef.Models;
 using SousChef.Helpers;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -72,8 +73,7 @@ namespace SousChef
             this.KeyboardAccelerators.Add(altLeft);
         }
 
-        private void NavView_ItemInvoked(muxc.NavigationView sender,
-                                         muxc.NavigationViewItemInvokedEventArgs args)
+        private void NavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked == true)
             {
@@ -101,13 +101,20 @@ namespace SousChef
 
             if (page == typeof(RecipePage))
             {
-                RecipeNavigationHelper.GetRecipeNavigationHelper().SetCurrentRecipePage(navItemTag);
+                // Don't allow navigating to the same recipe
+                if (RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage()?.Tag == navItemTag) return;
+
+                RecipeNavigationHelper.GetRecipeNavigationHelper().SetCurrentRecipePageUsingTag(navItemTag);
                 var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
                 ContentFrame.Navigate(page, recipeId, transitionInfo);
+                ((RecipePage)ContentFrame.Content).RecipeNameUpdated += RecipeNameUpdated;
             }
             else
+            {
+                RecipeNavigationHelper.GetRecipeNavigationHelper().InvalidateCurrentRecipeSelection();
                 ContentFrame.Navigate(page, null, transitionInfo);
+            }
         }
 
         private void NavView_BackRequested(muxc.NavigationView sender,
@@ -166,6 +173,8 @@ namespace SousChef
             }
         }
 
+        #region Recipe events
+
         private void AddRecipe(object sender, RoutedEventArgs e)
         {
             var recipeNavHelper = RecipeNavigationHelper.GetRecipeNavigationHelper();
@@ -187,5 +196,16 @@ namespace SousChef
             recipeNavHelper.AddRecipeNavigationReference(recipeNavRef);
             _pages.Add((recipeNavRef.Tag, typeof(RecipePage)));
         }
+
+        private void RecipeNameUpdated(Guid recipeGuid, string newName)
+        {
+            RecipeNavigationHelper.GetRecipeNavigationHelper().UpdateRecipeName(recipeGuid, newName);
+
+            NavView.MenuItems
+                   .OfType<muxc.NavigationViewItem>()
+                   .First(n => n.Tag.Equals(RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Tag)).Content = newName;
+        }
+
+        #endregion
     }
 }

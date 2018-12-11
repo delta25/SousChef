@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
@@ -20,6 +21,9 @@ namespace SousChef.Controls
         public static readonly DependencyProperty PlaceholderTextProperty =
             DependencyProperty.Register("PlaceholderText", typeof(string), typeof(ConfirmCancelTextBox), new PropertyMetadata(string.Empty));
 
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(ConfirmCancelTextBox), new PropertyMetadata(string.Empty, new PropertyChangedCallback(TextBoxValueChanged)));
+
         #endregion
 
         #region Properties
@@ -28,6 +32,12 @@ namespace SousChef.Controls
         {
             get { return (string)GetValue(PlaceholderTextProperty); }
             set { SetValue(PlaceholderTextProperty, value); }
+        }
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
         private Button saveTextChange;
@@ -40,8 +50,8 @@ namespace SousChef.Controls
 
         #region Events
 
-        public delegate void ButtonClicked(object sender, RoutedEventArgs e);
-        public event ButtonClicked ConfirmClicked;
+        public delegate void ButtonClickedEvent(object sender, RoutedEventArgs e);
+        public event ButtonClickedEvent ConfirmClicked;
 
         #endregion
 
@@ -77,6 +87,12 @@ namespace SousChef.Controls
             originalTextBoxValue = value;
         }
 
+        private static void TextBoxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // If the value isn't the same as the original text, display the Confirm/Cancel buttons
+
+        }
+
         private void TextBoxKeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -91,7 +107,7 @@ namespace SousChef.Controls
         private void SaveTextChangeClicked(object sender, RoutedEventArgs e)
         {
             originalTextBoxValue = textBox.Text;
-            ConfirmClicked(sender, e);
+            ConfirmClicked?.Invoke(sender, e);
         }
     }
 }

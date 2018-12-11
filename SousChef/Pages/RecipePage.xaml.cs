@@ -30,19 +30,32 @@ namespace SousChef.Pages
     /// </summary>
     public sealed partial class RecipePage : Page
     {
+        #region Events
+
+        public delegate void RecipeNameUpdatedEvent(Guid recipeGuid, string newName);
+        public event RecipeNameUpdatedEvent RecipeNameUpdated;
+
+        #endregion
+
+        #region Properties
+
         public Guid recipeId { get; set; }
+        public string recipeName { get; set; }
+
+        #endregion
 
         public RecipePage()
         {
             this.InitializeComponent();
-            //this.NavigationCacheMode = NavigationCacheMode.Required;
 
             backButton.Click += NavigateBack;
             forwardButton.Click += NavigateForward;
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
 
+            recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);            
         }
+
 
         #region Recipe page events
 
@@ -97,6 +110,42 @@ namespace SousChef.Pages
 
         #endregion
 
+        #region Browser control
+
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
+                scWebView.Refresh();
+        }
+
+        private void NavigateForward(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
+                scWebView.NavigateForward();
+        }
+
+        private void NavigateBack(object sender, RoutedEventArgs e)
+        {
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
+                scWebView.NavigateBack();
+        }
+
+        private void NavigateAndUpdate(string url, Guid? except = null)
+        {
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
+                scWebView.Navigate(url);
+        }
+
+        private void UrlBar_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                NavigateAndUpdate(urlBar.Text);
+        }
+
+        #endregion
+
+        #region Pane events
+
         private void AddPane(FrameworkElement pane)
         {
             paneGrid.ColumnDefinitions.Add(GridHelpers.GenerateGridColumn());
@@ -139,42 +188,6 @@ namespace SousChef.Pages
 
             AddPane(element);
         }
-
-        #region Browser control
-
-        private void Refresh(object sender, RoutedEventArgs e)
-        {
-            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
-                scWebView.Refresh();
-        }
-
-        private void NavigateForward(object sender, RoutedEventArgs e)
-        {
-            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
-                scWebView.NavigateForward();
-        }
-
-        private void NavigateBack(object sender, RoutedEventArgs e)
-        {
-            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>())
-                scWebView.NavigateBack();
-        }
-
-        private void NavigateAndUpdate(string url, Guid? except = null)
-        {
-            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
-                scWebView.Navigate(url);
-        }
-
-        private void UrlBar_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-                NavigateAndUpdate(urlBar.Text);
-        }
-
-        #endregion
-
-        #region Pane events
 
         private void PaneRestoredFromCache(Guid paneId)
         {

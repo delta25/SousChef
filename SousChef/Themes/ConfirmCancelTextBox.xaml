@@ -15,7 +15,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Column="0" PlaceholderText="{TemplateBinding PlaceholderText}"
-                                x:Name="textBox" Style="{StaticResource NoClearTextBox}"></TextBox>
+                                x:Name="textBox" Style="{StaticResource NoClearTextBox}" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                         <Button x:Name="saveTextChange" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Background="Transparent" Style="{StaticResource ConfirmButton}">
                             <Grid>

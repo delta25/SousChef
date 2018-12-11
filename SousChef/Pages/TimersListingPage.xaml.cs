@@ -48,6 +48,8 @@ namespace SousChef.Pages
             myGrid.Children.Add(webView2);
             Grid.SetColumn(webView2, 1);
             DispatcherTimerSetup();
+
+            Frame.Navigate(typeof(RecipePage));
         }
 
         WebView webView;
