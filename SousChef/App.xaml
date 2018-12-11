@@ -12,6 +12,9 @@
                 <ResourceDictionary Source="./Themes/SCNavigationViewItemHeader.xaml"/>
                 <ResourceDictionary Source="./Themes/GenericPane.xaml"/>
                 <ResourceDictionary Source="./Themes/PanelActionsBar.xaml"/>
+                <ResourceDictionary Source="./Themes/NoClearTextBox.xaml"/>
+                <ResourceDictionary Source="./Themes/Button.xaml"/>
+                <ResourceDictionary Source="./Themes/ConfirmCancelTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

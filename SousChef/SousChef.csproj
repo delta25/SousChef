@@ -119,9 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ConfirmCancelTextBox.xaml.cs">
-      <DependentUpon>ConfirmCancelTextBox.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\ConfirmCancelTextBox.cs" />
     <Compile Include="Controls\GenericPane.cs" />
     <Compile Include="Controls\IRecipePane.cs" />
     <Compile Include="Controls\SCWebView.xaml.cs">
@@ -174,10 +172,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\ConfirmCancelTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\SCWebView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +199,10 @@
     <Page Include="Themes\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ConfirmCancelTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\NoClearTextBox.xaml">
       <SubType>Designer</SubType>
