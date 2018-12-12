@@ -32,8 +32,8 @@ namespace SousChef.Controls
             set { SetValue(TextProperty, value); }
         }
 
-        private Button saveTextChange;
-        private Button cancelTextChange;
+        public Button saveTextChangeButton;
+        public Button cancelTextChangeButton;
         private TextBox textBox;
 
         private string originalTextBoxValue = string.Empty;
@@ -62,15 +62,15 @@ namespace SousChef.Controls
 
         private void BindUiVariables()
         {
-            saveTextChange = GetTemplateChild(nameof(saveTextChange)) as Button;
-            cancelTextChange = GetTemplateChild(nameof(cancelTextChange)) as Button;
+            saveTextChangeButton = GetTemplateChild(nameof(saveTextChangeButton)) as Button;
+            cancelTextChangeButton = GetTemplateChild(nameof(cancelTextChangeButton)) as Button;
             textBox = GetTemplateChild(nameof(textBox)) as TextBox;
         }
 
         private void AddEventListeners()
         {
-            this.saveTextChange.Click += SaveTextChangeClicked;
-            this.cancelTextChange.Click += CancelTextChangeClicked;
+            this.saveTextChangeButton.Click += SaveTextChangeClicked;
+            this.cancelTextChangeButton.Click += CancelTextChangeClicked;
             this.textBox.KeyUp += TextBoxKeyUp;
         }
 
@@ -82,7 +82,21 @@ namespace SousChef.Controls
         private static void TextBoxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // If the value isn't the same as the original text, display the Confirm/Cancel buttons
+            var confirmCancelTextBox = (ConfirmCancelTextBox)d;
+            if (!((string)e.NewValue).Equals(confirmCancelTextBox.originalTextBoxValue))
+                confirmCancelTextBox.ShowConfirmCancelButtons();
+        }
 
+        public void ShowConfirmCancelButtons()
+        {
+            saveTextChangeButton.Visibility = Visibility.Visible;
+            cancelTextChangeButton.Visibility = Visibility.Visible;
+        }
+
+        public void HideConfirmCancelButtons()
+        {
+            saveTextChangeButton.Visibility = Visibility.Collapsed;
+            cancelTextChangeButton.Visibility = Visibility.Collapsed;
         }
 
         private void TextBoxKeyUp(object sender, KeyRoutedEventArgs e)
@@ -94,12 +108,14 @@ namespace SousChef.Controls
         private void CancelTextChangeClicked(object sender, RoutedEventArgs e)
         {
             textBox.Text = originalTextBoxValue;
+            HideConfirmCancelButtons();
         }
 
         private void SaveTextChangeClicked(object sender, RoutedEventArgs e)
         {
             originalTextBoxValue = textBox.Text;
             ConfirmClicked?.Invoke(sender, e);
+            HideConfirmCancelButtons();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace SousChef.Pages
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
 
-            recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);            
+            recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);
         }
 
 
@@ -63,8 +63,11 @@ namespace SousChef.Pages
         {
             var recipeCache = new RecipeCache();
 
-            // Uurl
+            // url
             recipeCache.Url = urlBar.Text;
+
+            // Name
+            recipeCache.Name = recipeName;
 
             // Take screenshot of recipeGrid
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
@@ -83,13 +86,16 @@ namespace SousChef.Pages
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
+        {            
             this.recipeId = (Guid)e.Parameter;
 
             // Check cache for that recipe id
             if (RecipeCachingHelper.cache.ContainsKey(recipeId))
             {
                 var recipeCache = RecipeCachingHelper.cache[recipeId];
+
+                // Restore the name
+                recipeName = recipeCache.Name;
 
                 // Restore URL
                 urlBar.Text = recipeCache.Url;

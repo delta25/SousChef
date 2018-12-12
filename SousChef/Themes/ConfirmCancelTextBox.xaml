@@ -46,6 +46,9 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForegroundFocused}}" />
                                         </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundFocused}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -85,7 +88,8 @@
                             BorderThickness="0,0,0,1"
                             Control.IsTemplateFocusTarget="True"
                             MinWidth="{ThemeResource TextControlThemeMinWidth}"
-                            MinHeight="{ThemeResource TextControlThemeMinHeight}" />
+                            MinHeight="{ThemeResource TextControlThemeMinHeight}"
+                            Visibility="Collapsed"/>
                         <ScrollViewer x:Name="ContentElement"
                             Grid.Row="1"
                             Grid.Column="0"
@@ -134,13 +138,13 @@
                         <TextBox Grid.Column="0" PlaceholderText="{TemplateBinding PlaceholderText}" x:Name="textBox" Style="{StaticResource ProminentNoClearTextBox}"                                  
                                  Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-                        <Button x:Name="saveTextChange" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="1" Background="Transparent" Style="{StaticResource ConfirmButton}">
+                        <Button x:Name="saveTextChangeButton" Width="auto" Visibility="Collapsed"  VerticalAlignment="Stretch"  Grid.Column="1" Background="Transparent" Style="{StaticResource ConfirmButton}">
                             <Grid>
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="18" Text="&#xEA3A;" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE73E;" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </Button>
-                        <Button x:Name="cancelTextChange" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="2" Background="Transparent"  Style="{StaticResource CancelButton}">
+                        <Button x:Name="cancelTextChangeButton" Width="auto" Visibility="Collapsed"  VerticalAlignment="Stretch"  Grid.Column="2" Background="Transparent"  Style="{StaticResource CancelButton}">
                             <Grid>
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="18" Text="&#xEA3A;" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE711;" VerticalAlignment="Center" HorizontalAlignment="Center"/>
