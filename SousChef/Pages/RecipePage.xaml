@@ -6,12 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:SousChef.Controls"
+    xmlns:extensions="using:SousChef.Extensions"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
-                <ResourceDictionary Source="./../Themes/NoClearTextBox.xaml"/>                
+                <ResourceDictionary Source="./../Themes/NoClearTextBox.xaml"/>
+                <ResourceDictionary Source="./../Themes/FavouriteCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -33,9 +35,11 @@
             </Grid.ColumnDefinitions>
 
 
-            <Button x:Name="favouriteRecipeButton"  Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">
-                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="{Binding favouriteRecipeIcon}"/>
-            </Button>
+            <!--<Button x:Name="favouriteRecipeButton"  Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">                
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="{x:Bind favouriteRecipeIcon}"/>
+            </Button>-->
+
+            <extensions:FavouriteCheckBox Grid.Column="0"  IsChecked="{x:Bind recipeIsFavourite}"/>
 
             <controls:ConfirmCancelTextBox x:Name="recipeNameTextBox" Grid.Column="1" PlaceholderText="Give this recipe a name" Text="{x:Bind recipeName, Mode=TwoWay}"/>
 

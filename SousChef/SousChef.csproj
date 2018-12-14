@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConfirmCancelTextBox.cs" />
+    <Compile Include="Extensions\FavouriteCheckBox.cs" />
     <Compile Include="Controls\GenericPane.cs" />
     <Compile Include="Controls\IRecipePane.cs" />
     <Compile Include="Controls\SCWebView.xaml.cs">
@@ -205,6 +206,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ConfirmCancelTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\FavouriteCheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

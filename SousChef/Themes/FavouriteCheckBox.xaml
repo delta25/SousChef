@@ -1,0 +1,85 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SousChef.Extensions">
+
+    <ResourceDictionary.MergedDictionaries >
+        <ResourceDictionary Source="./BaseThemes.xaml"/>
+        <ResourceDictionary>
+
+            <Style TargetType="local:FavouriteCheckBox" BasedOn="{StaticResource BaseCheckBox}">
+                <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}" />
+                <Setter Property="Foreground" Value="{ThemeResource CheckBoxForegroundUnchecked}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CheckBoxBorderBrushUnchecked}" />
+                <Setter Property="Padding" Value="8,5,0,0" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="MinHeight" Value="32" />
+                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+                <Setter Property="FocusVisualMargin" Value="-7,-3,-7,-3" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:FavouriteCheckBox">
+                            <Grid x:Name="RootGrid" >
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CombinedStates">
+                                        <VisualState x:Name="UncheckedPointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IsFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="0" Duration="0" />
+                                                <DoubleAnimation Storyboard.TargetName="IsNotFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UncheckedNormal">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IsFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="0" Duration="0" />
+                                                <DoubleAnimation Storyboard.TargetName="IsNotFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="CheckedNormal">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IsFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />                                                
+                                                <DoubleAnimation Storyboard.TargetName="IsNotFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedPointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IsFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                                <DoubleAnimation Storyboard.TargetName="IsNotFavouriteGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid VerticalAlignment="Top" Height="32">
+
+                                    <FontIcon x:Name="IsFavouriteGlyph" FontFamily="Segoe MDL2 Assets"
+                                                Glyph="&#xE735;" FontSize="20"
+                                                Foreground="Gold" Opacity="0" />
+
+                                    <FontIcon x:Name="IsNotFavouriteGlyph" FontFamily="Segoe MDL2 Assets"
+                                                Glyph="&#xE734;" FontSize="20"
+                                                Foreground="Black" Opacity="0"/>
+                                </Grid>
+
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="./Themes/NoClearTextBox.xaml"/>
                 <ResourceDictionary Source="./Themes/Button.xaml"/>
                 <ResourceDictionary Source="./Themes/ConfirmCancelTextBox.xaml"/>
+                <ResourceDictionary Source="./Themes/FavouriteCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

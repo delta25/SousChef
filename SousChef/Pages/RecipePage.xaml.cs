@@ -42,11 +42,12 @@ namespace SousChef.Pages
 
         public Guid recipeId { get; set; }
         public string recipeName { get; set; }
-
-        private readonly string favouriteIconDisabled = "&#xE734;";
-        private readonly string favouriteIconEnabled = "&#xE735;";
+        
+        private readonly string favouriteIconDisabled = "\uE734";
+        private readonly string favouriteIconEnabled = "\uE735";
 
         private string favouriteRecipeIcon { get; set; }
+        private bool recipeIsFavourite { get; set; }
 
         #endregion
 
@@ -58,19 +59,10 @@ namespace SousChef.Pages
             forwardButton.Click += NavigateForward;
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
-
-            favouriteRecipeIcon = favouriteIconDisabled;
-            favouriteRecipeButton.Click += ToggleFavouriteRecipeButton;
+                    
+            //favouriteRecipeButton.Click += ToggleFavouriteRecipeButton;
 
             recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);
-        }
-
-        private void ToggleFavouriteRecipeButton(object sender, RoutedEventArgs e)
-        {
-            if (favouriteRecipeIcon == favouriteIconDisabled)
-                favouriteRecipeIcon = favouriteIconEnabled;
-            else
-                favouriteRecipeIcon = favouriteIconDisabled;
         }
 
 
