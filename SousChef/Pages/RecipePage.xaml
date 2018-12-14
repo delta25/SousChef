@@ -34,14 +34,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-
-            <!--<Button x:Name="favouriteRecipeButton"  Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">                
-                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="{x:Bind favouriteRecipeIcon}"/>
-            </Button>-->
-
-            <extensions:FavouriteCheckBox Grid.Column="0"  IsChecked="{x:Bind recipeIsFavourite}"/>
-
-            <controls:ConfirmCancelTextBox x:Name="recipeNameTextBox" Grid.Column="1" PlaceholderText="Give this recipe a name" Text="{x:Bind recipeName, Mode=TwoWay}"/>
+            <extensions:FavouriteCheckBox  VerticalAlignment="Center" Grid.Column="0"  IsChecked="{x:Bind recipeIsFavourite}"/>
+            <controls:ConfirmCancelTextBox VerticalAlignment="Center" x:Name="recipeNameTextBox" Grid.Column="1" PlaceholderText="Give this recipe a name" Text="{x:Bind recipeName, Mode=TwoWay}"/>
 
         </Grid>
 

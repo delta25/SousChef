@@ -8,20 +8,14 @@
         <ResourceDictionary>
 
             <Style TargetType="local:FavouriteCheckBox" BasedOn="{StaticResource BaseCheckBox}">
-                <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}" />
-                <Setter Property="Foreground" Value="{ThemeResource CheckBoxForegroundUnchecked}" />
-                <Setter Property="BorderBrush" Value="{ThemeResource CheckBoxBorderBrushUnchecked}" />
-                <Setter Property="Padding" Value="8,5,0,0" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalContentAlignment" Value="Left" />
-                <Setter Property="VerticalContentAlignment" Value="Top" />
-                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
-                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />                
                 <Setter Property="MinWidth" Value="0" />
-                <Setter Property="MinHeight" Value="32" />
-                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
-                <Setter Property="FocusVisualMargin" Value="-7,-3,-7,-3" />
+                <Setter Property="MinHeight" Value="2" />
+                <Setter Property="Margin" Value="7,0,7,0"/>
+                <Setter Property="UseSystemFocusVisuals" Value="false" />                
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="local:FavouriteCheckBox">
@@ -63,7 +57,7 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Grid VerticalAlignment="Top" Height="32">
+                                <Grid>
 
                                     <FontIcon x:Name="IsFavouriteGlyph" FontFamily="Segoe MDL2 Assets"
                                                 Glyph="&#xE735;" FontSize="20"
