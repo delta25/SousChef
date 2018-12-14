@@ -33,8 +33,8 @@
             </Grid.ColumnDefinitions>
 
 
-            <Button x:Name="favouriteRecipe" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">
-                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE734;"/>
+            <Button x:Name="favouriteRecipeButton"  Width="auto"  VerticalAlignment="Stretch"  Grid.Column="0" Background="Transparent">
+                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="{Binding favouriteRecipeIcon}"/>
             </Button>
 
             <controls:ConfirmCancelTextBox x:Name="recipeNameTextBox" Grid.Column="1" PlaceholderText="Give this recipe a name" Text="{x:Bind recipeName, Mode=TwoWay}"/>

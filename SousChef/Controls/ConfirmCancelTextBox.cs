@@ -37,6 +37,8 @@ namespace SousChef.Controls
         private TextBox textBox;
 
         private string originalTextBoxValue = string.Empty;
+        public string OriginalTextBoxValue { get => originalTextBoxValue; set => originalTextBoxValue = value; }
+
 
         #endregion
 
@@ -89,14 +91,20 @@ namespace SousChef.Controls
 
         public void ShowConfirmCancelButtons()
         {
-            saveTextChangeButton.Visibility = Visibility.Visible;
-            cancelTextChangeButton.Visibility = Visibility.Visible;
+            if (saveTextChangeButton != null && cancelTextChangeButton != null)
+            {
+                saveTextChangeButton.Visibility = Visibility.Visible;
+                cancelTextChangeButton.Visibility = Visibility.Visible;
+            }
         }
 
         public void HideConfirmCancelButtons()
         {
-            saveTextChangeButton.Visibility = Visibility.Collapsed;
-            cancelTextChangeButton.Visibility = Visibility.Collapsed;
+            if (saveTextChangeButton != null && cancelTextChangeButton != null)
+            {
+                saveTextChangeButton.Visibility = Visibility.Collapsed;
+                cancelTextChangeButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void TextBoxKeyUp(object sender, KeyRoutedEventArgs e)

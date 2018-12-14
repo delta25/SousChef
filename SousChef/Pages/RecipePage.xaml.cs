@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -42,6 +43,11 @@ namespace SousChef.Pages
         public Guid recipeId { get; set; }
         public string recipeName { get; set; }
 
+        private readonly string favouriteIconDisabled = "&#xE734;";
+        private readonly string favouriteIconEnabled = "&#xE735;";
+
+        private string favouriteRecipeIcon { get; set; }
+
         #endregion
 
         public RecipePage()
@@ -53,7 +59,18 @@ namespace SousChef.Pages
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
 
+            favouriteRecipeIcon = favouriteIconDisabled;
+            favouriteRecipeButton.Click += ToggleFavouriteRecipeButton;
+
             recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);
+        }
+
+        private void ToggleFavouriteRecipeButton(object sender, RoutedEventArgs e)
+        {
+            if (favouriteRecipeIcon == favouriteIconDisabled)
+                favouriteRecipeIcon = favouriteIconEnabled;
+            else
+                favouriteRecipeIcon = favouriteIconDisabled;
         }
 
 
@@ -68,6 +85,7 @@ namespace SousChef.Pages
 
             // Name
             recipeCache.Name = recipeName;
+            recipeNameTextBox.OriginalTextBoxValue = recipeName;
 
             // Take screenshot of recipeGrid
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
@@ -83,10 +101,17 @@ namespace SousChef.Pages
             RecipeCachingHelper.cache[recipeId] = recipeCache;
 
             // Navigate
+
+            // Check if we need to save by consulting the favourite icon
+            SaveIfFavourite();
+
+            Application.Current.Suspending -= SaveIfFavourite;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
+            Application.Current.Suspending -= SaveIfFavourite;
+
             this.recipeId = (Guid)e.Parameter;
 
             // Check cache for that recipe id
@@ -112,6 +137,11 @@ namespace SousChef.Pages
             {
                 AddWebViewPane(null, null);
             }
+        }
+
+        public void SaveIfFavourite(object sender = null, SuspendingEventArgs e = null)
+        {
+
         }
 
         #endregion

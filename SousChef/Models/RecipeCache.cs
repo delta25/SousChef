@@ -13,6 +13,7 @@ namespace SousChef.Models
         public string Url { get; set; }
         public List<PaneCache> RecipePanes = new List<PaneCache>();
         public RenderTargetBitmap CacheImage { get; set; }
+        public bool IsFavourite { get; set; }
     }
 
     public class PaneCache

@@ -31,6 +31,12 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
+                <muxc:NavigationViewItem Tag="conversions" Content="Conversions">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF1CB;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
                 <muxc:NavigationViewItemSeparator/>
 
                 <extensions:SCNavigationViewItemHeader x:Name="RecipePagesHeader" Content="Recipes"
