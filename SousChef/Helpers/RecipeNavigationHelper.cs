@@ -22,8 +22,11 @@ namespace SousChef.Helpers
 
         public void AddRecipeNavigationReference(RecipeNavigationReference navigationRef) => recipeNavigationReferences.Add(navigationRef);
 
+        public bool IsRecipeWithIdOpen(Guid recipeId) => recipeNavigationReferences.Any(x => x.Id == recipeId);
+        public string GetRecipeTagForId(Guid recipeId) => recipeNavigationReferences.FirstOrDefault(x => x.Id == recipeId)?.Tag;
+
         public int GetRecipeCount() => recipeNavigationReferences.Count();
-        public int GetNextRecipeId() => recipeNavigationReferences.Count() + 1;
+        public int GetNextRecipeId() => GetRecipeCount() + 1;
 
         public void UpdateRecipeName(Guid recipeGuid, string newName) => recipeNavigationReferences.FirstOrDefault(x => x.Id.Equals(recipeGuid)).Title = newName;
     }

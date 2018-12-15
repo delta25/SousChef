@@ -19,7 +19,6 @@
         <muxc:NavigationView x:Name="NavView" CompactModeThresholdWidth="0"
                                 Loaded="NavView_Loaded"
                                 ItemInvoked="NavView_ItemInvoked"
-                                BackRequested="NavView_BackRequested"
                                 AlwaysShowHeader="False">
             <muxc:NavigationView.MenuItems>
 
@@ -33,7 +32,13 @@
 
                 <muxc:NavigationViewItem Tag="conversions" Content="Conversions">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF1CB;"/>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8AB;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Tag="myRecipes" Content="My Recipes">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 

@@ -44,6 +44,7 @@ namespace SousChef
             {
                 ("home", typeof(HomePage)),
                 ("timers", typeof(TimersListingPage)),
+                ("myRecipes", typeof(RecipeListing)),
             };
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
@@ -51,26 +52,20 @@ namespace SousChef
             // Add handler for ContentFrame navigation.
             ContentFrame.Navigated += On_Navigated;
 
-            // NavView doesn't load any page by default, so load home page.
             NavView.SelectedItem = NavView.MenuItems[0];
-            // If navigation occurs on SelectionChanged, this isn't needed.
-            // Because we use ItemInvoked to navigate, we need to call Navigate
-            // here to load the home page.
             NavView_Navigate("home", new EntranceNavigationTransitionInfo());
 
-            // Add keyboard accelerators for backwards navigation.
-            var goBack = new KeyboardAccelerator { Key = VirtualKey.GoBack };
-            goBack.Invoked += BackInvoked;
-            this.KeyboardAccelerators.Add(goBack);
-
-            // ALT routes here
+            /* ALT routes here
             var altLeft = new KeyboardAccelerator
             {
                 Key = VirtualKey.Left,
                 Modifiers = VirtualKeyModifiers.Menu
             };
             altLeft.Invoked += BackInvoked;
-            this.KeyboardAccelerators.Add(altLeft);
+            this.KeyboardAccelerators.Add(altLeft);*/
+
+            NavView.IsBackButtonVisible = muxc.NavigationViewBackButtonVisible.Collapsed;
+
         }
 
         private void NavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
@@ -108,7 +103,15 @@ namespace SousChef
                 var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
                 ContentFrame.Navigate(page, recipeId, transitionInfo);
+                NavView.PaneDisplayMode = muxc.NavigationViewPaneDisplayMode.LeftCompact ;
                 ((RecipePage)ContentFrame.Content).RecipeNameUpdated += RecipeNameUpdated;
+            }
+            else if (page == typeof(RecipeListing))
+            {
+                RecipeNavigationHelper.GetRecipeNavigationHelper().InvalidateCurrentRecipeSelection();
+                ContentFrame.Navigate(page, null, transitionInfo);
+
+                ((RecipeListing)ContentFrame.Content).RecipeRestored += RestoreRecipe;
             }
             else
             {
@@ -117,38 +120,8 @@ namespace SousChef
             }
         }
 
-        private void NavView_BackRequested(muxc.NavigationView sender,
-                                           muxc.NavigationViewBackRequestedEventArgs args)
-        {
-            On_BackRequested();
-        }
-
-        private void BackInvoked(KeyboardAccelerator sender,
-                                 KeyboardAcceleratorInvokedEventArgs args)
-        {
-            On_BackRequested();
-            args.Handled = true;
-        }
-
-        private bool On_BackRequested()
-        {
-            if (!ContentFrame.CanGoBack)
-                return false;
-
-            // Don't go back if the nav pane is overlayed.
-            if (NavView.IsPaneOpen &&
-                (NavView.DisplayMode == muxc.NavigationViewDisplayMode.Compact ||
-                 NavView.DisplayMode == muxc.NavigationViewDisplayMode.Minimal))
-                return false;
-
-            ContentFrame.GoBack();
-            return true;
-        }
-
         private void On_Navigated(object sender, NavigationEventArgs e)
-        {
-            NavView.IsBackEnabled = ContentFrame.CanGoBack;
-
+        {            
             if (ContentFrame.SourcePageType == typeof(SettingsPage))
             {
                 // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
@@ -175,16 +148,38 @@ namespace SousChef
 
         #region Recipe events
 
+        private void RestoreRecipe(RecipeCache recipeCache)
+        {
+            RecipeCachingHelper.cache[recipeCache.Id] = recipeCache;
+
+            AddRecipe(new RecipeNavigationReference()
+            {
+                Id = recipeCache.Id,
+                Title = recipeCache.Name
+            });
+        }
+
         private void AddRecipe(object sender, RoutedEventArgs e)
         {
-            var recipeNavHelper = RecipeNavigationHelper.GetRecipeNavigationHelper();
-
             var recipeNavRef = new RecipeNavigationReference()
             {
                 Id = Guid.NewGuid(),
                 Title = "New Recipe",
-                Tag = $"recipe_{ recipeNavHelper.GetNextRecipeId() }"
             };
+
+            AddRecipe(recipeNavRef);
+        }
+
+        private void AddRecipe(RecipeNavigationReference recipeNavRef)
+        {
+            var recipeNavHelper = RecipeNavigationHelper.GetRecipeNavigationHelper();
+            if (recipeNavHelper.IsRecipeWithIdOpen(recipeNavRef.Id))
+            {
+                NavView_Navigate(recipeNavHelper.GetRecipeTagForId(recipeNavRef.Id), null);
+                return;
+            }
+
+            recipeNavRef.Tag = $"recipe_{ recipeNavHelper.GetNextRecipeId() }";
 
             NavView.MenuItems.Add(new muxc.NavigationViewItem
             {
@@ -195,6 +190,8 @@ namespace SousChef
 
             recipeNavHelper.AddRecipeNavigationReference(recipeNavRef);
             _pages.Add((recipeNavRef.Tag, typeof(RecipePage)));
+
+            NavView_Navigate(recipeNavRef.Tag, null);
         }
 
         private void RecipeNameUpdated(Guid recipeGuid, string newName)

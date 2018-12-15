@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,22 +10,29 @@ namespace SousChef.Models
 {
     public class RecipeCache
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public List<PaneCache> RecipePanes = new List<PaneCache>();
-        public RenderTargetBitmap CacheImage { get; set; }
         public bool IsFavourite { get; set; }
+
+        [JsonIgnore]
+        public RenderTargetBitmap CacheImage { get; set; }
     }
 
     public class PaneCache
     {
-        public Guid Id { get; internal set; }
+        public Guid Id { get; set; }
+
+        [JsonIgnore]
         public bool Restored { get; set; }
     }
 
     public class SCWebViewPaneCache : PaneCache
     {
         public string Url { get; set; }
+
+        [JsonIgnore]
         public double ScrollValue { get; set; }
     }
 }

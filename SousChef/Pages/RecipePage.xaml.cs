@@ -1,24 +1,15 @@
-﻿using SousChef.Controls;
+﻿using Newtonsoft.Json;
+using SousChef.Controls;
 using SousChef.Helpers;
 using SousChef.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -42,7 +33,7 @@ namespace SousChef.Pages
 
         public Guid recipeId { get; set; }
         public string recipeName { get; set; }
-        
+
         private readonly string favouriteIconDisabled = "\uE734";
         private readonly string favouriteIconEnabled = "\uE735";
 
@@ -59,25 +50,27 @@ namespace SousChef.Pages
             forwardButton.Click += NavigateForward;
             refreshButton.Click += Refresh;
             splitPaneButton.Click += AddWebViewPane;
-                    
-            //favouriteRecipeButton.Click += ToggleFavouriteRecipeButton;
 
             recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);
         }
 
-
         #region Recipe page events
 
-        protected async override void OnNavigatingFrom(NavigatingCancelEventArgs args)
+        private async Task<RecipeCache> GenerateRecipeCacheObject()
         {
             var recipeCache = new RecipeCache();
 
             // url
             recipeCache.Url = urlBar.Text;
 
+            // Recipe Id
+            recipeCache.Id = this.recipeId;
+
             // Name
             recipeCache.Name = recipeName;
-            recipeNameTextBox.OriginalTextBoxValue = recipeName;
+
+            // Favourite
+            recipeCache.IsFavourite = recipeIsFavourite;
 
             // Take screenshot of recipeGrid
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
@@ -89,20 +82,25 @@ namespace SousChef.Pages
             foreach (var pane in paneGrid.Children)
                 recipeCache.RecipePanes.Add(((SCWebView)pane).GetCacheValues());
 
+            return recipeCache;
+        }
+
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs args)
+        {
+            var recipeCache = await GenerateRecipeCacheObject();
+
             // Save in custom cache
             RecipeCachingHelper.cache[recipeId] = recipeCache;
 
-            // Navigate
-
             // Check if we need to save by consulting the favourite icon
-            SaveIfFavourite();
+            SaveIfFavourite(recipeCache);
 
             Application.Current.Suspending -= SaveIfFavourite;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Application.Current.Suspending -= SaveIfFavourite;
+            Application.Current.Suspending += SaveIfFavourite;
 
             this.recipeId = (Guid)e.Parameter;
 
@@ -113,13 +111,20 @@ namespace SousChef.Pages
 
                 // Restore the name
                 recipeName = recipeCache.Name;
+                recipeNameTextBox.OriginalTextBoxValue = recipeName;
+
+                // Is favourite
+                recipeIsFavourite = recipeCache.IsFavourite;
 
                 // Restore URL
                 urlBar.Text = recipeCache.Url;
 
                 // Restore image and display that
-                cacheImage.Source = recipeCache.CacheImage;
-                cacheImage.Visibility = Visibility.Visible;
+                if (recipeCache.CacheImage != null)
+                {
+                    cacheImage.Source = recipeCache.CacheImage;
+                    cacheImage.Visibility = Visibility.Visible;
+                }
 
                 // Tell panes to restore from cache
                 foreach (var paneCache in recipeCache.RecipePanes)
@@ -131,9 +136,29 @@ namespace SousChef.Pages
             }
         }
 
-        public void SaveIfFavourite(object sender = null, SuspendingEventArgs e = null)
+        public void SaveIfFavourite(object sender, SuspendingEventArgs e)
         {
+            SaveIfFavourite(GenerateRecipeCacheObject().Result);
+        }
 
+        public async void SaveIfFavourite(RecipeCache recipeCache)
+        {
+            if (!recipeIsFavourite)
+            {
+                // Delete file if already there
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                IStorageItem recipeFile = await storageFolder.TryGetItemAsync($"{recipeCache.Id.ToString()}.rcp");
+                if (recipeFile != null)
+                    await recipeFile.DeleteAsync();
+            }
+            else
+            {
+                //Update fave
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                StorageFile recipeFile = await storageFolder.CreateFileAsync($"{recipeCache.Id.ToString()}.rcp", CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(recipeFile, JsonConvert.SerializeObject(recipeCache, settings));
+            }
         }
 
         #endregion
