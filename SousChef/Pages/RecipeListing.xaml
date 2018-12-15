@@ -10,13 +10,18 @@
 
     <Grid>
         <StackPanel>
-            <TextBox Text="My Recipes"></TextBox>
+            <TextBlock FontSize="24" Margin="10,0,0,10" Text="My Recipes"></TextBlock>
             <ListView x:Name="recipeListing" DoubleTapped="RecipeDoubleClicked">
+                <ListView.Resources>
+                    
+                </ListView.Resources>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0,0,0,0"/>
                     </Style>
                 </ListView.ItemContainerStyle>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="6">
