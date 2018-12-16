@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <local:GenericPane x:Name="genericPane">
-        <WebView x:Name="webView"></WebView>
+        <!--web view added programaticlly-->
     </local:GenericPane>
 
 </local:RecipePane>

@@ -11,20 +11,24 @@ namespace SousChef.Controls
 {
     public sealed partial class SCWebView : RecipePane
     {
+        #region Properties 
         public delegate void NotifyOfNavigationHandler(string targetUrl, Guid initiatorGuid);
         public NotifyOfNavigationHandler NotifyOfNavigationEvent;
 
         ScrollValueRetrievalHelper scrollValueRetrievalHelper = new ScrollValueRetrievalHelper();
 
-        public string borderWidth { get => borderWidthInt + "px"; }
-        public int borderWidthInt { get => 5; }
-
         private string currentUrl;
+
+        private WebView webView;
+
+        #endregion
 
         public SCWebView() :base()
         {
             this.InitializeComponent();
 
+            webView = new WebView(WebViewExecutionMode.SeparateThread);
+            genericPane.Content = webView;
             genericPane.PaneClosingEvent += (sender, args) => PaneClosingEvent(this.paneId);
         }
 
