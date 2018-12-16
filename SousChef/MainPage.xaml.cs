@@ -29,6 +29,12 @@ namespace SousChef
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        #region properties
+
+        double defaultCompactModeThreshold;
+
+        #endregion
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -49,6 +55,7 @@ namespace SousChef
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
+            defaultCompactModeThreshold = NavView.CompactModeThresholdWidth;
             // Add handler for ContentFrame navigation.
             ContentFrame.Navigated += On_Navigated;
 
@@ -103,7 +110,7 @@ namespace SousChef
                 var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
                 ContentFrame.Navigate(page, recipeId, transitionInfo);
-                NavView.PaneDisplayMode = muxc.NavigationViewPaneDisplayMode.LeftCompact ;
+                NavView.CompactModeThresholdWidth = 1;
                 ((RecipePage)ContentFrame.Content).RecipeNameUpdated += RecipeNameUpdated;
             }
             else if (page == typeof(RecipeListing))
@@ -121,7 +128,7 @@ namespace SousChef
         }
 
         private void On_Navigated(object sender, NavigationEventArgs e)
-        {            
+        {
             if (ContentFrame.SourcePageType == typeof(SettingsPage))
             {
                 // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.

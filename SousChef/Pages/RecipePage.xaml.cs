@@ -56,7 +56,7 @@ namespace SousChef.Pages
 
         #region Recipe page events
 
-        private async Task<RecipeCache> GenerateRecipeCacheObject()
+        private async Task<RecipeCache> GenerateRecipeCacheObject(bool isSaving = false)
         {
             var recipeCache = new RecipeCache();
 
@@ -72,11 +72,13 @@ namespace SousChef.Pages
             // Favourite
             recipeCache.IsFavourite = recipeIsFavourite;
 
-            // Take screenshot of recipeGrid
-            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
-            await renderTargetBitmap.RenderAsync(recipeGrid, (int)recipeGrid.ActualWidth, (int)recipeGrid.ActualHeight);
-
-            recipeCache.CacheImage = renderTargetBitmap;
+            if (!isSaving)
+            {
+                // Take screenshot of recipeGrid
+                RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+                await renderTargetBitmap.RenderAsync(recipeGrid, (int)recipeGrid.ActualWidth, (int)recipeGrid.ActualHeight);
+                recipeCache.CacheImage = renderTargetBitmap;
+            }
 
             // Get number of webview panels and each of their scroll values
             foreach (var pane in paneGrid.Children)
@@ -95,12 +97,12 @@ namespace SousChef.Pages
             // Check if we need to save by consulting the favourite icon
             SaveIfFavourite(recipeCache);
 
-            Application.Current.Suspending -= SaveIfFavourite;
+            Application.Current.Suspending -= OnAppSuspending;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Application.Current.Suspending += SaveIfFavourite;
+            Application.Current.Suspending += OnAppSuspending;
 
             this.recipeId = (Guid)e.Parameter;
 
@@ -136,9 +138,15 @@ namespace SousChef.Pages
             }
         }
 
+        private void OnAppSuspending(object sender, SuspendingEventArgs e)
+        {
+            Application.Current.Suspending -= OnAppSuspending;
+            SaveIfFavourite(null, null);
+        }
+
         public void SaveIfFavourite(object sender, SuspendingEventArgs e)
         {
-            SaveIfFavourite(GenerateRecipeCacheObject().Result);
+            SaveIfFavourite(GenerateRecipeCacheObject(isSaving:true).Result);
         }
 
         public async void SaveIfFavourite(RecipeCache recipeCache)
