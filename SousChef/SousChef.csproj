@@ -120,10 +120,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConfirmCancelTextBox.cs" />
+    <Compile Include="Controls\RecipePane.cs" />
+    <Compile Include="Controls\PaneTypes\SCTextView.xaml.cs">
+      <DependentUpon>SCTextView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\FavouriteCheckBox.cs" />
     <Compile Include="Controls\GenericPane.cs" />
     <Compile Include="Controls\IRecipePane.cs" />
-    <Compile Include="Controls\SCWebView.xaml.cs">
+    <Compile Include="Controls\PaneTypes\SCWebView.xaml.cs">
       <DependentUpon>SCWebView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PanelActionBar.cs" />
@@ -185,7 +189,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\SCWebView.xaml">
+    <Page Include="Controls\PaneTypes\SCTextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PaneTypes\SCWebView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

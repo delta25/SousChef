@@ -9,6 +9,7 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -24,8 +25,8 @@ namespace SousChef.Pages
     {
         #region Events
 
-        public delegate void RecipeNameUpdatedEvent(Guid recipeGuid, string newName);
-        public event RecipeNameUpdatedEvent RecipeNameUpdated;
+        public delegate void RecipeNameUpdatedHandler(Guid recipeGuid, string newName);
+        public event RecipeNameUpdatedHandler RecipeNameUpdatedEvent;
 
         #endregion
 
@@ -49,9 +50,12 @@ namespace SousChef.Pages
             backButton.Click += NavigateBack;
             forwardButton.Click += NavigateForward;
             refreshButton.Click += Refresh;
-            splitPaneButton.Click += AddWebViewPane;
+            splitPaneButton.Click += ShowSplitPaneContextMenu;
 
-            recipeNameTextBox.ConfirmClicked += (sender, e) => RecipeNameUpdated?.Invoke(this.recipeId, recipeName);
+            addWebViewButton.Click += AddWebViewPane;
+            addTextViewButton.Click += AddTextViewPane;
+
+            recipeNameTextBox.ConfirmClickedEvent += (sender, e) => RecipeNameUpdatedEvent?.Invoke(this.recipeId, recipeName);
         }
 
         #region Recipe page events
@@ -82,7 +86,7 @@ namespace SousChef.Pages
 
             // Get number of webview panels and each of their scroll values
             foreach (var pane in paneGrid.Children)
-                recipeCache.RecipePanes.Add(((SCWebView)pane).GetCacheValues());
+                recipeCache.RecipePanes.Add(((IRecipePane)pane).GetCacheValues());
 
             return recipeCache;
         }
@@ -146,7 +150,7 @@ namespace SousChef.Pages
 
         public void SaveIfFavourite(object sender, SuspendingEventArgs e)
         {
-            SaveIfFavourite(GenerateRecipeCacheObject(isSaving:true).Result);
+            SaveIfFavourite(GenerateRecipeCacheObject(isSaving: true).Result);
         }
 
         public async void SaveIfFavourite(RecipeCache recipeCache)
@@ -193,7 +197,7 @@ namespace SousChef.Pages
 
         private void NavigateAndUpdate(string url, Guid? except = null)
         {
-            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>().Where(x => !x.webViewId.Equals(except)))
+            foreach (var scWebView in paneGrid.Children.OfType<SCWebView>().Where(x => !x.paneId.Equals(except)))
                 scWebView.Navigate(url);
         }
 
@@ -206,6 +210,11 @@ namespace SousChef.Pages
         #endregion
 
         #region Pane events
+
+        private void ShowSplitPaneContextMenu(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
 
         private void AddPane(FrameworkElement pane)
         {
@@ -231,10 +240,19 @@ namespace SousChef.Pages
 
             var webView = new SCWebView(initUrl);
 
-            webView.AddNavigationObserver(NotifiedOfNavigation);
-            webView.AddPaneClosingObserver(ClosePaneWithGuid);
+            webView.NotifyOfNavigationEvent = NotifiedOfNavigation;
+            webView.PaneClosingEvent = ClosePaneWithGuid;
 
             AddPane(webView);
+        }
+
+        private void AddTextViewPane(object sender, RoutedEventArgs e)
+        {
+            var textView = new SCTextView();
+
+            textView.PaneClosingEvent = ClosePaneWithGuid;
+
+            AddPane(textView);
         }
 
         private void RestorePaneFromCache(PaneCache paneCache)
@@ -242,10 +260,10 @@ namespace SousChef.Pages
             var element = PaneFactory.RestorePaneFromCache(paneCache);
 
             if (element.GetType() == typeof(SCWebView))
-                ((SCWebView)element).AddNavigationObserver(NotifiedOfNavigation);
+                ((SCWebView)element).NotifyOfNavigationEvent = NotifiedOfNavigation;
 
-            ((IRecipePane)element).AddPaneClosingObserver(ClosePaneWithGuid);
-            ((IRecipePane)element).AddPaneFinishedRestoringObserver(PaneRestoredFromCache);
+            ((RecipePane)element).PaneClosingEvent = ClosePaneWithGuid;
+            ((RecipePane)element).PaneFinishedRestoringEvent = PaneRestoredFromCache;
 
             AddPane(element);
         }
@@ -267,17 +285,33 @@ namespace SousChef.Pages
 
         private void ClosePaneWithGuid(Guid toRemove)
         {
-            var webViewToRemove = paneGrid.Children.OfType<SCWebView>().FirstOrDefault(x => x.webViewId.Equals(toRemove));
-            var columnIndexToRemove = paneGrid.Children.IndexOf(webViewToRemove);
+            var viewToRemove = paneGrid.Children.OfType<RecipePane>().FirstOrDefault(x => x.paneId.Equals(toRemove));
+            var columnIndexToRemove = paneGrid.Children.IndexOf(viewToRemove);
+
+            if (columnIndexToRemove == 0)
+            {
+                // Remove left padding for second item
+                var element = (FrameworkElement)paneGrid.Children[columnIndexToRemove + 1];
+                if (element != null)
+                    element.Margin = new Thickness(0, 0, element.Margin.Right, 0);
+            }
+
+            if (columnIndexToRemove == paneGrid.Children.Count - 1)
+            {
+                // Remove right padding for second to last item
+                var element = (FrameworkElement)paneGrid.Children[paneGrid.Children.Count - 1];
+                if (element != null)
+                    element.Margin = new Thickness(element.Margin.Left, 0, 0, 0);
+            }
 
             // Move all items with column index > columnIndexToRemove to the left
             var numberOfColumns = paneGrid.ColumnDefinitions.Count();
             for (int i = columnIndexToRemove + 1; i < numberOfColumns; i++)
-                GridHelpers.SetElementCoordinates(paneGrid.Children[i] as SCWebView, i - 1, 0);
+                GridHelpers.SetElementCoordinates(paneGrid.Children[i] as FrameworkElement, i - 1, 0);
 
             // Remove the last column
             paneGrid.ColumnDefinitions.RemoveAt(numberOfColumns - 1);
-            paneGrid.Children.Remove(webViewToRemove);
+            paneGrid.Children.Remove(viewToRemove);
         }
 
         #endregion

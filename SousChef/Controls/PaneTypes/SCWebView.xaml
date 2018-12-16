@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<local:RecipePane
     x:Class="SousChef.Controls.SCWebView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,4 +13,4 @@
         <WebView x:Name="webView"></WebView>
     </local:GenericPane>
 
-</UserControl>
+</local:RecipePane>

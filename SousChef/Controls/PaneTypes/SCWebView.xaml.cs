@@ -9,13 +9,10 @@ using Windows.UI.Xaml.Input;
 
 namespace SousChef.Controls
 {
-    public sealed partial class SCWebView : UserControl, IRecipePane
+    public sealed partial class SCWebView : RecipePane
     {
-        public Guid webViewId { get; set; }
-
-        private Action<string, Guid> notifyOfNavigation;
-        private Action<Guid> notifyOfClosing;
-        private Action<Guid> finishedRestoringFromCache;
+        public delegate void NotifyOfNavigationHandler(string targetUrl, Guid initiatorGuid);
+        public NotifyOfNavigationHandler NotifyOfNavigationEvent;
 
         ScrollValueRetrievalHelper scrollValueRetrievalHelper = new ScrollValueRetrievalHelper();
 
@@ -24,44 +21,21 @@ namespace SousChef.Controls
 
         private string currentUrl;
 
-        public SCWebView()
+        public SCWebView() :base()
         {
             this.InitializeComponent();
 
-            genericPane.PaneClosingEvent += (sender, args) => notifyOfClosing(this.webViewId);
+            genericPane.PaneClosingEvent += (sender, args) => PaneClosingEvent(this.paneId);
         }
 
         public SCWebView(string initUrl) : this()
         {
-            webViewId = Guid.NewGuid();
-
             Navigate(initUrl);
 
             SetUpNavigationCheckTimer();
             SetUpScrollUpdateTimer();
         }
-
-        #region Observer registrations
-
-        public void AddNavigationObserver(Action<string, Guid> notifyOfNavigation)
-        {
-            this.notifyOfNavigation = notifyOfNavigation;
-        }
-
-        public void AddPaneClosingObserver(Action<Guid> closePaneWithGuid)
-        {
-            this.notifyOfClosing = closePaneWithGuid;
-        }
-
-        public void AddPaneFinishedRestoringObserver(Action<Guid> paneRestoredFromCache)
-        {
-            this.finishedRestoringFromCache = paneRestoredFromCache;
-        }
-
-        #endregion
-
-
-
+        
         #region Timers
 
         private void SetUpNavigationCheckTimer()
@@ -90,7 +64,7 @@ namespace SousChef.Controls
                 webView.AddWebAllowedObject("ScrollHelper", scrollValueRetrievalHelper);
 
                 currentUrl = displayedUrl;
-                this.notifyOfNavigation(displayedUrl, this.webViewId);
+                this.NotifyOfNavigationEvent(displayedUrl, this.paneId);
             }
         }
 
@@ -145,11 +119,11 @@ namespace SousChef.Controls
 
         #region Cache methods
 
-        public PaneCache GetCacheValues()
+        public override PaneCache GetCacheValues()
         {            
             return new SCWebViewPaneCache
             {
-                Id = this.webViewId,
+                Id = this.paneId,
                 Url = this.currentUrl,
                 ScrollValue = scrollValueRetrievalHelper.ScrollValue
             };
@@ -157,11 +131,11 @@ namespace SousChef.Controls
 
         private SCWebViewPaneCache currentPaneCache;
 
-        public void RestoreFromCache(PaneCache paneCache)
+        public override void RestoreFromCache(PaneCache paneCache)
         {
             currentPaneCache = (SCWebViewPaneCache)paneCache;
 
-            webViewId = currentPaneCache.Id;
+            paneId = currentPaneCache.Id;
 
             webView.DOMContentLoaded += RestoreWebViewFromCacheComplete;
             webView.Source = new Uri(currentPaneCache.Url);
@@ -174,7 +148,7 @@ namespace SousChef.Controls
              await webView.InvokeScriptAsync("eval",
                 new[] { "function scroll(){window.scrollTo(0," + currentPaneCache.ScrollValue + ");} scroll();" });
 
-            finishedRestoringFromCache(this.webViewId);
+            PaneFinishedRestoringEvent(this.paneId);
             SetUpNavigationCheckTimer();
             SetUpScrollUpdateTimer();
         }

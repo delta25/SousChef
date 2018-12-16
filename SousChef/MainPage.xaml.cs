@@ -110,15 +110,15 @@ namespace SousChef
                 var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
                 ContentFrame.Navigate(page, recipeId, transitionInfo);
-                NavView.CompactModeThresholdWidth = 1;
-                ((RecipePage)ContentFrame.Content).RecipeNameUpdated += RecipeNameUpdated;
+                NavView.IsPaneOpen = false;
+                ((RecipePage)ContentFrame.Content).RecipeNameUpdatedEvent += RecipeNameUpdated;
             }
             else if (page == typeof(RecipeListing))
             {
                 RecipeNavigationHelper.GetRecipeNavigationHelper().InvalidateCurrentRecipeSelection();
                 ContentFrame.Navigate(page, null, transitionInfo);
 
-                ((RecipeListing)ContentFrame.Content).RecipeRestored += RestoreRecipe;
+                ((RecipeListing)ContentFrame.Content).RecipeRestoredEvent += RestoreRecipe;
             }
             else
             {

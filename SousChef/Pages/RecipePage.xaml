@@ -62,6 +62,20 @@
                  Style="{StaticResource NoClearTextBox}"></TextBox>
             <Button x:Name="splitPaneButton" Width="auto"  VerticalAlignment="Stretch"  Grid.Column="4" Background="Transparent">
                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE710;"/>
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Web" x:Name="addWebViewButton" >
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEB41;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Text" x:Name="addTextViewButton" >
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE70F;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
             </Button>
         </Grid>
 

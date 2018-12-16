@@ -44,8 +44,8 @@ namespace SousChef.Controls
 
         #region Events
 
-        public delegate void ButtonClickedEvent(object sender, RoutedEventArgs e);
-        public event ButtonClickedEvent ConfirmClicked;
+        public delegate void ButtonClickedHandler(object sender, RoutedEventArgs e);
+        public event ButtonClickedHandler ConfirmClickedEvent;
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace SousChef.Controls
         private void SaveTextChangeClicked(object sender, RoutedEventArgs e)
         {
             originalTextBoxValue = textBox.Text;
-            ConfirmClicked?.Invoke(sender, e);
+            ConfirmClickedEvent?.Invoke(sender, e);
             HideConfirmCancelButtons();
         }
     }

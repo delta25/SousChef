@@ -14,8 +14,8 @@ namespace SousChef.Controls
 {    
     public sealed class PanelActionBar : Control
     {
-        public delegate void ActionBarButtonClicked(object sender, EventArgs e);
-        public event ActionBarButtonClicked CloseButtonClicked;
+        public delegate void ActionBarButtonClickedHandler(object sender, EventArgs e);
+        public event ActionBarButtonClickedHandler CloseButtonClickedEvent;
 
         public Button closeButton { get; set; }
 
@@ -37,7 +37,7 @@ namespace SousChef.Controls
 
         private void AddEventListeners()
         {
-            closeButton.Click += (sender, e) => CloseButtonClicked(sender, EventArgs.Empty);
+            closeButton.Click += (sender, e) => CloseButtonClickedEvent(sender, EventArgs.Empty);
         }
     }
 }

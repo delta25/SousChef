@@ -27,7 +27,7 @@ namespace SousChef.Pages
     public sealed partial class RecipeListing : Page
     {
         public delegate void RecipeRestoredHandler(RecipeCache recipeCache);
-        public RecipeRestoredHandler RecipeRestored;
+        public RecipeRestoredHandler RecipeRestoredEvent;
 
         public RecipeListing()
         {
@@ -56,7 +56,7 @@ namespace SousChef.Pages
             var item = ((FrameworkElement)e.OriginalSource).DataContext;
             var myRecipe = item as RecipeCache;
             if (item != null)
-                RecipeRestored?.Invoke(myRecipe);
+                RecipeRestoredEvent?.Invoke(myRecipe);
         }
     }
 }

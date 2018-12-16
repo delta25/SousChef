@@ -25,8 +25,8 @@ namespace SousChef.Controls
         private Grid borderBottom;
         public PanelActionBar panelActionBar;
         
-        public delegate void PaneClosing(object sender, EventArgs e);
-        public event PaneClosing PaneClosingEvent;
+        public delegate void PaneClosingHandler(object sender, EventArgs e);
+        public event PaneClosingHandler PaneClosingEvent;
 
         public GenericPane()
         {
@@ -61,7 +61,7 @@ namespace SousChef.Controls
             borderBottom.PointerEntered += BottomBorderEntered;
             //borderTop.DragEnter += TopBorderEntered;
 
-            panelActionBar.CloseButtonClicked += ClosePane;
+            panelActionBar.CloseButtonClickedEvent += ClosePane;
         }
 
         #region Border Events
