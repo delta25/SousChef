@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Text;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace SousChef.Models
@@ -34,5 +35,10 @@ namespace SousChef.Models
 
         [JsonIgnore]
         public double ScrollValue { get; set; }
+    }
+
+    public class SCTextViewPaneCache : PaneCache
+    {
+        public string TextDocument { get; set; }
     }
 }

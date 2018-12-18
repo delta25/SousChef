@@ -15,10 +15,13 @@ namespace SousChef.Helpers
         {
             if (paneCache.GetType() == typeof(SCWebViewPaneCache))
             {
-                var scWebViewPaneCache = (SCWebViewPaneCache)paneCache;
                 var restoredScWebView = new SCWebView();
-                restoredScWebView.RestoreFromCache(scWebViewPaneCache);
                 return restoredScWebView;
+            }
+            if (paneCache.GetType() == typeof(SCTextViewPaneCache))
+            {
+                var restoredScTextView = new SCTextView();
+                return restoredScTextView;
             }
 
             return null;

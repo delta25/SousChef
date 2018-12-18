@@ -50,7 +50,8 @@ namespace SousChef
             {
                 ("home", typeof(HomePage)),
                 ("timers", typeof(TimersListingPage)),
-                ("myRecipes", typeof(RecipeListing)),
+                ("conversions", typeof(ConversionsPage)),
+                ("myRecipes", typeof(RecipeListingPage)),
             };
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
@@ -113,12 +114,12 @@ namespace SousChef
                 NavView.IsPaneOpen = false;
                 ((RecipePage)ContentFrame.Content).RecipeNameUpdatedEvent += RecipeNameUpdated;
             }
-            else if (page == typeof(RecipeListing))
+            else if (page == typeof(RecipeListingPage))
             {
                 RecipeNavigationHelper.GetRecipeNavigationHelper().InvalidateCurrentRecipeSelection();
                 ContentFrame.Navigate(page, null, transitionInfo);
 
-                ((RecipeListing)ContentFrame.Content).RecipeRestoredEvent += RestoreRecipe;
+                ((RecipeListingPage)ContentFrame.Content).RecipeRestoredEvent += RestoreRecipe;
             }
             else
             {

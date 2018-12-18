@@ -265,6 +265,8 @@ namespace SousChef.Pages
             ((RecipePane)element).PaneClosingEvent = ClosePaneWithGuid;
             ((RecipePane)element).PaneFinishedRestoringEvent = PaneRestoredFromCache;
 
+            ((RecipePane)element).RestoreFromCache(paneCache);
+
             AddPane(element);
         }
 

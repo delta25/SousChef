@@ -24,12 +24,12 @@ namespace SousChef.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class RecipeListing : Page
+    public sealed partial class RecipeListingPage : Page
     {
         public delegate void RecipeRestoredHandler(RecipeCache recipeCache);
         public RecipeRestoredHandler RecipeRestoredEvent;
 
-        public RecipeListing()
+        public RecipeListingPage()
         {
             this.InitializeComponent();
 
