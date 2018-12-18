@@ -88,11 +88,19 @@ namespace SousChef.Pages
             foreach (var pane in paneGrid.Children)
                 recipeCache.RecipePanes.Add(((IRecipePane)pane).GetCacheValues());
 
+            safeToClose = true;
             return recipeCache;
         }
 
+        private bool safeToClose = false;
+
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs args)
         {
+            if (safeToClose) return;
+
+            // Cancel navigation so we can take the screenshot
+            args.Cancel = true;
+
             var recipeCache = await GenerateRecipeCacheObject();
 
             // Save in custom cache
@@ -102,6 +110,13 @@ namespace SousChef.Pages
             SaveIfFavourite(recipeCache);
 
             Application.Current.Suspending -= OnAppSuspending;
+
+            // Clean webviews from memory
+            foreach (SCWebView webView in paneGrid.Children.OfType<SCWebView>())
+                webView.GarbageCollect();
+
+            // Navigate
+            Frame.Navigate(args.SourcePageType);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

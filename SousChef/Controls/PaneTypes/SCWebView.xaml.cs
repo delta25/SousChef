@@ -21,15 +21,18 @@ namespace SousChef.Controls
 
         private WebView webView;
 
+        DispatcherTimer navigationCheckTimer;
+        DispatcherTimer scrollUpdateTimer;
+
         #endregion
 
-        public SCWebView() :base()
+        public SCWebView() : base()
         {
             this.InitializeComponent();
 
             webView = new WebView(WebViewExecutionMode.SeparateThread);
             genericPane.Content = webView;
-            genericPane.PaneClosingEvent += (sender, args) => PaneClosingEvent(this.paneId);
+            genericPane.PaneClosingEvent += PaneClosing;
         }
 
         public SCWebView(string initUrl) : this()
@@ -39,12 +42,32 @@ namespace SousChef.Controls
             SetUpNavigationCheckTimer();
             SetUpScrollUpdateTimer();
         }
-        
+
+        #region Events
+
+        private void PaneClosing(object sender, EventArgs e)
+        {
+            GarbageCollect();
+            PaneClosingEvent(this.paneId);
+        }
+
+        public void GarbageCollect()
+        {
+            // Necessary to avoid memory leak
+            scrollUpdateTimer.Stop();
+            navigationCheckTimer.Stop();
+            genericPane.Content = null;
+            webView = null;
+            GC.Collect();
+        }
+
+        #endregion
+
         #region Timers
 
         private void SetUpNavigationCheckTimer()
         {
-            DispatcherTimer navigationCheckTimer = new DispatcherTimer();
+            navigationCheckTimer = new DispatcherTimer();
             navigationCheckTimer.Tick += NavigationCheckTimer_Tick;
             navigationCheckTimer.Interval = new TimeSpan(0, 0, 0, 0, 250);
             navigationCheckTimer.Start();
@@ -52,7 +75,7 @@ namespace SousChef.Controls
 
         private void SetUpScrollUpdateTimer()
         {
-            DispatcherTimer scrollUpdateTimer = new DispatcherTimer();
+            scrollUpdateTimer = new DispatcherTimer();
             scrollUpdateTimer.Tick += ScrollUpdateTimer_TickAsync;
             scrollUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 250);
             scrollUpdateTimer.Start();
@@ -60,7 +83,7 @@ namespace SousChef.Controls
 
         void NavigationCheckTimer_Tick(object sender, object e)
         {
-            if (webView.Source == null) return;
+            if (webView?.Source == null) return;
 
             var displayedUrl = webView.Source.AbsoluteUri.ToString();
             if (currentUrl != displayedUrl)
@@ -124,7 +147,7 @@ namespace SousChef.Controls
         #region Cache methods
 
         public override PaneCache GetCacheValues()
-        {            
+        {
             return new SCWebViewPaneCache
             {
                 Id = this.paneId,
@@ -144,13 +167,13 @@ namespace SousChef.Controls
             webView.DOMContentLoaded += RestoreWebViewFromCacheComplete;
             webView.Source = new Uri(currentPaneCache.Url);
         }
-        
+
         private async void RestoreWebViewFromCacheComplete(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
             currentUrl = args.Uri.AbsoluteUri;
 
-             await webView.InvokeScriptAsync("eval",
-                new[] { "function scroll(){window.scrollTo(0," + currentPaneCache.ScrollValue + ");} scroll();" });
+            await webView.InvokeScriptAsync("eval",
+               new[] { "function scroll(){window.scrollTo(0," + currentPaneCache.ScrollValue + ");} scroll();" });
 
             PaneFinishedRestoringEvent(this.paneId);
             SetUpNavigationCheckTimer();
