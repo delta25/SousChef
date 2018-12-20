@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using Newtonsoft.Json;
-using SousChef.Constants;
 using SousChef.Models;
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ namespace SousChef.Pages
     public sealed partial class ConvertersPage : Page
     {
 
-        public string selectedConverterKey;
+        private string selectedConverterKey;        
         private Dictionary<string, List<Converter>> availableConverters;
 
         public ConvertersPage()
@@ -57,6 +56,10 @@ namespace SousChef.Pages
             }
         }
 
+        private void SelectedUnitGroupChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var x = 1;
+        }
     }
 
 }
