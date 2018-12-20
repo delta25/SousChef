@@ -15,7 +15,7 @@
             <SplitView.Pane>
                 <StackPanel>
                     <TextBlock FontSize="24" Margin="10,0,0,10" Text="Converters"></TextBlock>
-                    <ListView x:Name="converterListing" SelectedItem="{x:Bind selectedConverter}">
+                    <ListView x:Name="converterListing" SelectedItem="{x:Bind selectedConverterKey}">
                         <ListView.Resources>
 
                         </ListView.Resources>
@@ -33,7 +33,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="10,0,0,0">
-                                        <TextBlock Text="{Binding Name}" TextWrapping="NoWrap"/>
+                                        <TextBlock Text="{Binding}" TextWrapping="NoWrap"/>
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
