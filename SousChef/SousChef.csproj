@@ -119,6 +119,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Constants\IngredientConversions.cs" />
+    <Compile Include="Constants\UnitConversions.cs" />
     <Compile Include="Controls\ConfirmCancelTextBox.cs" />
     <Compile Include="Controls\RecipePane.cs" />
     <Compile Include="Controls\PaneTypes\SCTextView.xaml.cs">
@@ -139,8 +141,9 @@
     <Compile Include="Helpers\RecipeNavigationHelper.cs" />
     <Compile Include="Models\RecipeCache.cs" />
     <Compile Include="Models\RecipeNavigationReference.cs" />
-    <Compile Include="Pages\ConversionsPage.xaml.cs">
-      <DependentUpon>ConversionsPage.xaml</DependentUpon>
+    <Compile Include="Models\UnitConversion.cs" />
+    <Compile Include="Pages\ConvertersPage.xaml.cs">
+      <DependentUpon>ConvertersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -166,6 +169,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Resources\Converters.csv" />
     <None Include="SousChef_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +204,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ConversionsPage.xaml">
+    <Page Include="Pages\ConvertersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

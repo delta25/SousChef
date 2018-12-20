@@ -1,0 +1,10 @@
+UnitGroup,Units,LeftIcon,RightIcon,LeftName,RightName,LeftToRight,RightToLeft
+Temperature,Fahrenheit & Celsius,ms-appx:///Assets/fahrenheit.png,ms-appx:///Assets/celsius.png,Fahrenheit,Celsius,x - 32 * 5 / 9,x * 9 / 5 + 32
+Butter Sticks & Grams,Butter Sticks & Grams,ms-appx:///Assets/butterStick.png,ms-appx:///Assets/weight.png,Sticks of Butter,Grams,x * 113,x / 113
+Cups & ML,Cups & ML,ms-appx:///Assets/cup.png,ms-appx:///Assets/liquid.png,Cups,Ml,x * 237,x / 237
+Cups & Grams,AP Flour & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,AP Flour,Grams,x * 128,x / 128
+Cups & Grams,Bread Flour & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,Bread Flour,Grams,x * 136,x / 136
+Cups & Grams,Rolled Oats & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,Rolled Oats,Grams,x * 85,x / 85
+Cups & Grams,White Sugar & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,White Sugar,Grams,x * 201,x / 201
+Cups & Grams,Packed Brown Sugar & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,Packed Brown Sugar,Grams,x * 220,x / 220
+Cups & Grams,Honey & Grams,ms-appx:///Assets/cup.png,ms-appx:///Assets/weight.png,Honey,Grams,x * 340,x / 340
