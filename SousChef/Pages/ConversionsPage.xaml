@@ -9,24 +9,22 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <TextBlock FontSize="24" Margin="10,0,0,10" Text="Conversions"></TextBlock>
-            
-            <GridView x:Name="convertersGridView" Margin="0,120,0,0" MaxHeight="500" Grid.Column="1">
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="20" Width="50px">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" TextWrapping="WrapWholeWords" Style="{StaticResource BaseTextBlockStyle}"/>
-                            <TextBlock Text="{Binding IsFavourite}" TextWrapping="NoWrap" Style="{StaticResource BodyTextBlockStyle}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3"/>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-            </GridView>
-        </StackPanel>
+        <SplitView IsPaneOpen="True"
+           DisplayMode="Inline"
+           OpenPaneLength="296">
+            <SplitView.Pane>
+                <TextBlock Text="Pane"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+            </SplitView.Pane>
+
+            <Grid>
+                <TextBlock Text="Content"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+            </Grid>
+        </SplitView>
     </Grid>
 </Page>

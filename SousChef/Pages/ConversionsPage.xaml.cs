@@ -31,22 +31,6 @@ namespace SousChef.Pages
         {
             this.InitializeComponent();
 
-            LoadRecipesFromDisk();
-        }
-
-        private async void LoadRecipesFromDisk()
-        {
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            var recipes = (await storageFolder.GetFilesAsync()).Where(x => x.Name.EndsWith(".rcp")).ToList();
-            var recipeFileContents = await Task.WhenAll(recipes.Select(async x => await FileIO.ReadTextAsync(x)));
-
-            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-            List<RecipeCache> availableRecipes = recipeFileContents.Select(x => JsonConvert.DeserializeObject<RecipeCache>(x, settings))
-                                                        .Where(x => x.IsFavourite)
-                                                        .OrderBy(x => x.Name)
-                                                        .ToList();
-            var p = availableRecipes[0];
-            convertersGridView.ItemsSource = new List<RecipeCache> { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p };
         }
     }
 }
