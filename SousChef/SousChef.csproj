@@ -168,6 +168,9 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\convert.png" />
+    <Content Include="Assets\cup.png" />
+    <Content Include="Assets\weight.png" />
     <Content Include="Resources\Converters.csv" />
     <None Include="SousChef_TemporaryKey.pfx" />
   </ItemGroup>

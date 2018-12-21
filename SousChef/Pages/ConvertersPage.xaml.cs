@@ -28,9 +28,11 @@ namespace SousChef.Pages
     /// </summary>
     public sealed partial class ConvertersPage : Page
     {
-
-        private string selectedConverterKey;        
-        private Dictionary<string, List<Converter>> availableConverters;
+        private string defaultImage = "ms-appx:///Assets/convert.png";
+        private string selectedConverterKey;
+        private Converter selectedConverter;
+        private List<Converter> availableConvertersForUnitGroup;
+        private Dictionary<string, List<Converter>> availableUnitGroupedConverters;
 
         public ConvertersPage()
         {
@@ -51,14 +53,20 @@ namespace SousChef.Pages
                 csv.Read();
                 csv.ReadHeader();
                 var records = csv.GetRecords<Converter>();
-                availableConverters = records.GroupBy(x => x.UnitGroup).ToDictionary(x => x.Key, x => x.ToList());
-                converterListing.ItemsSource = new List<string>(this.availableConverters.Keys);
+                availableUnitGroupedConverters = records.GroupBy(x => x.UnitGroup).ToDictionary(x => x.Key, x => x.ToList());
+                converterListing.ItemsSource = new List<string>(this.availableUnitGroupedConverters.Keys);
             }
         }
 
         private void SelectedUnitGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            var x = 1;
+            availableConvertersForUnitGroup = availableUnitGroupedConverters[selectedConverterKey];
+            selectedConverter = availableConvertersForUnitGroup.FirstOrDefault();
+            defaultImage = "ms-appx:///Assets/weight.png";
+
+            leftImage.UriSource = new Uri(selectedConverter.LeftIcon);
+            rightImage.UriSource = new Uri(selectedConverter.RightIcon);
+
         }
     }
 
