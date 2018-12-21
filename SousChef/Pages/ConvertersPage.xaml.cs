@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using SousChef.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,14 +33,13 @@ namespace SousChef.Pages
         private string defaultImage = "ms-appx:///Assets/convert.png";
         private string selectedConverterKey;
         private Converter selectedConverter;
-        private List<Converter> availableConvertersForUnitGroup;
+        private ObservableCollection<Converter> availableConvertersForUnitGroup;
         private Dictionary<string, List<Converter>> availableUnitGroupedConverters;
 
         public ConvertersPage()
         {
             this.InitializeComponent();
 
-            //PopulateConverterOptions();
             LoadConvertersAsync();
         }
 
@@ -60,14 +61,23 @@ namespace SousChef.Pages
 
         private void SelectedUnitGroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            availableConvertersForUnitGroup = availableUnitGroupedConverters[selectedConverterKey];
-            selectedConverter = availableConvertersForUnitGroup.FirstOrDefault();
-            defaultImage = "ms-appx:///Assets/weight.png";
+            mainPane.Visibility = Visibility.Visible;
+
+            availableConvertersForUnitGroup = new ObservableCollection<Converter>(availableUnitGroupedConverters[selectedConverterKey]);
+
+            unitComboBox.Visibility = availableConvertersForUnitGroup.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
+            unitComboBox.ItemsSource = availableConvertersForUnitGroup;
+            unitComboBox.SelectedItem = availableConvertersForUnitGroup.FirstOrDefault();
 
             leftImage.UriSource = new Uri(selectedConverter.LeftIcon);
-            rightImage.UriSource = new Uri(selectedConverter.RightIcon);
+            //rightImage.UriSource = new Uri(selectedConverter.RightIcon);
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChangeEvent(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

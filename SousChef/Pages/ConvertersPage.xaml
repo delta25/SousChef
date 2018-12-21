@@ -38,11 +38,11 @@
                                             PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
                                             PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
                                             PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
-                                            SelectedBackground="Pink"
+                                            SelectedBackground="Transparent"
                                             SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
-                                            SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}"
+                                            SelectedPointerOverBackground="Transparent"
                                             PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
-                                            SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}"
+                                            SelectedPressedBackground="Transparent"
                                             DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
                                             DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
                                             ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
@@ -72,7 +72,7 @@
                 </StackPanel>
             </SplitView.Pane>
 
-            <Grid BorderBrush="Red" BorderThickness="1">
+            <Grid x:Name="mainPane" BorderThickness="1" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="5*" MaxWidth="300"/>
@@ -89,23 +89,29 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <ComboBox Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center"/>
+                <ComboBox x:Name="unitComboBox" Visibility="Collapsed"  Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" 
+                            DisplayMemberPath="Units" SelectedItem="{x:Bind Path=selectedConverter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
                 <Image Grid.Column="1" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image.Source>
                         <BitmapImage x:Name="leftImage" />
                     </Image.Source>
                 </Image>
+
                 <Image Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image.Source>
                         <BitmapImage UriSource="{x:Bind defaultImage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </Image.Source>
                 </Image>
+
                 <Image Grid.Column="3" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image.Source>
-                        <BitmapImage x:Name="rightImage" />
+                        <BitmapImage UriSource="{x:Bind Path=selectedConverter.RightIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Image.Source>
                 </Image>
+
+                <TextBlock  Grid.Row="5" Text="{Binding Path=selectedConverter.RightIcon, ElementName=Self, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
         </SplitView>
