@@ -44,7 +44,7 @@ namespace SousChef.Pages
 
             var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
             var availableRecipes = recipeFileContents.Select(x => JsonConvert.DeserializeObject<RecipeCache>(x, settings))
-                                                        .Where(x => x.IsFavourite)
+                                                        .Where(x => x!= null && x.IsFavourite)
                                                         .OrderBy(x => x.Name)
                                                         .ToList();
 

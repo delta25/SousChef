@@ -111,15 +111,11 @@ namespace SousChef
                 var recipeId = RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Id;
 
                 ContentFrame.Navigate(page, recipeId, transitionInfo);
-                NavView.IsPaneOpen = false;
-                ((RecipePage)ContentFrame.Content).RecipeNameUpdatedEvent += RecipeNameUpdated;
             }
             else if (page == typeof(RecipeListingPage))
             {
                 RecipeNavigationHelper.GetRecipeNavigationHelper().InvalidateCurrentRecipeSelection();
                 ContentFrame.Navigate(page, null, transitionInfo);
-
-                ((RecipeListingPage)ContentFrame.Content).RecipeRestoredEvent += RestoreRecipe;
             }
             else
             {
@@ -141,6 +137,13 @@ namespace SousChef
                 NavView.SelectedItem = NavView.MenuItems
                     .OfType<muxc.NavigationViewItem>()
                     .First(n => n.Tag.Equals(RecipeNavigationHelper.GetRecipeNavigationHelper().GetCurrentRecipePage().Tag));
+
+                NavView.IsPaneOpen = false;
+                ((RecipePage)ContentFrame.Content).RecipeNameUpdatedEvent += RecipeNameUpdated;
+            }
+            else if (ContentFrame.SourcePageType == typeof(RecipeListingPage))
+            {
+                ((RecipeListingPage)ContentFrame.Content).RecipeRestoredEvent += RestoreRecipe;
             }
             else if (ContentFrame.SourcePageType != null)
             {

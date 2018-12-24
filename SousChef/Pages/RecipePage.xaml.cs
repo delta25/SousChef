@@ -107,7 +107,7 @@ namespace SousChef.Pages
             RecipeCachingHelper.cache[recipeId] = recipeCache;
 
             // Check if we need to save by consulting the favourite icon
-            SaveIfFavourite(recipeCache);
+            await SaveIfFavourite(recipeCache);
 
             Application.Current.Suspending -= OnAppSuspending;
 
@@ -157,18 +157,20 @@ namespace SousChef.Pages
             }
         }
 
-        private void OnAppSuspending(object sender, SuspendingEventArgs e)
+        private async void OnAppSuspending(object sender, SuspendingEventArgs e)
         {
+            var deferral = e.SuspendingOperation.GetDeferral();
             Application.Current.Suspending -= OnAppSuspending;
-            SaveIfFavourite(null, null);
+            await SaveIfFavourite(null, null);
+            deferral.Complete();
         }
 
-        public void SaveIfFavourite(object sender, SuspendingEventArgs e)
+        public async Task SaveIfFavourite(object sender, SuspendingEventArgs e)
         {
-            SaveIfFavourite(GenerateRecipeCacheObject(isSaving: true).Result);
+            await SaveIfFavourite(GenerateRecipeCacheObject(isSaving: true).Result);
         }
 
-        public async void SaveIfFavourite(RecipeCache recipeCache)
+        public async Task SaveIfFavourite(RecipeCache recipeCache)
         {
             if (!recipeIsFavourite)
             {

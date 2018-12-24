@@ -38,7 +38,7 @@ namespace SousChef.Controls
         public SCWebView(string initUrl) : this()
         {
             Navigate(initUrl);
-
+            this.currentUrl = initUrl;
             SetUpNavigationCheckTimer();
             SetUpScrollUpdateTimer();
         }
@@ -54,8 +54,8 @@ namespace SousChef.Controls
         public void GarbageCollect()
         {
             // Necessary to avoid memory leak
-            scrollUpdateTimer.Stop();
-            navigationCheckTimer.Stop();
+            scrollUpdateTimer?.Stop();
+            navigationCheckTimer?.Stop();
             genericPane.Content = null;
             webView = null;
             GC.Collect();
@@ -166,6 +166,7 @@ namespace SousChef.Controls
 
             webView.DOMContentLoaded += RestoreWebViewFromCacheComplete;
             webView.Source = new Uri(currentPaneCache.Url);
+            this.currentUrl = currentPaneCache.Url;
         }
 
         private async void RestoreWebViewFromCacheComplete(WebView sender, WebViewDOMContentLoadedEventArgs args)
