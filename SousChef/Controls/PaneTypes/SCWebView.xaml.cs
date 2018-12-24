@@ -52,7 +52,7 @@ namespace SousChef.Controls
         }
 
         public void GarbageCollect()
-        {
+        {            
             // Necessary to avoid memory leak
             scrollUpdateTimer?.Stop();
             navigationCheckTimer?.Stop();

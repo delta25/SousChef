@@ -50,7 +50,7 @@ namespace SousChef
             {
                 ("home", typeof(HomePage)),
                 ("timers", typeof(TimersListingPage)),
-                ("conversions", typeof(ConversionsPage)),
+                ("converters", typeof(ConvertersPage)),
                 ("myRecipes", typeof(RecipeListingPage)),
             };
 
